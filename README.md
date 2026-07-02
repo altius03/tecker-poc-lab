@@ -1,11 +1,11 @@
-﻿# Tecker PoC Lab
+# Techeer PoC Lab
 
-테커 부트캠프 아이디어 회의용 PoC 코드와 정리 문서 공유 레포입니다.
+Techeer 부트캠프 아이디어 회의용 PoC 코드와 정리 문서 공유 레포입니다.
 
 ## 구조
 
 ```text
-tecker-poc-lab/
+techeer-poc-lab/
 ├─ README.md
 ├─ docs/
 │  ├─ 00_아이디어_정리_인덱스.md
@@ -16,11 +16,17 @@ tecker-poc-lab/
 │     └─ 각 주제별 Codex 구현 작업지시서
 └─ poc_code/
    ├─ voc_quest_poc/
+   │  ├─ src/
+   │  ├─ tests/
    │  └─ VOC Quest 시장조사 파이프라인 PoC
    ├─ becareful_poc/
-   │  └─ Be:Careful PoC 위치
+   │  ├─ src/
+   │  ├─ tests/
+   │  └─ Be:Careful 복약 안내 PoC
    └─ date_route_poc/
-      └─ 데이트 동선 탐색 PoC 위치
+      ├─ src/
+      ├─ tests/
+      └─ 데이트 동선 탐색 PoC
 ```
 
 ## 실행 원칙
@@ -32,7 +38,5 @@ tecker-poc-lab/
 ## 제품별 상태
 
 - `poc_code/voc_quest_poc`: VOC Quest 시장조사 파이프라인 PoC 코드 포함
-- `poc_code/becareful_poc`: Be:Careful PoC 위치와 작업지시서 연결 완료, 구현 코드 대기
-- `poc_code/date_route_poc`: 데이트 동선 탐색 PoC 위치와 작업지시서 연결 완료, 구현 코드 대기
-
-나머지 구현 결과가 준비되면 같은 구조로 추가합니다.
+- `poc_code/becareful_poc`: Be:Careful 더미 OCR + mock DUR PoC 코드 포함
+- `poc_code/date_route_poc`: 데이트 동선 탐색 Kakao Local 기반 PoC 코드 포함
