@@ -1,0 +1,7 @@
+[project]
+name = "becareful-poc"
+version = "0.1.0"
+description = "Rule-based Python CLI PoC for Be:Careful OCR to handoff-card flow."
+requires-python = ">=3.11"
+dependencies = []
+
