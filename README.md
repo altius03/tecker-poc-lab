@@ -5,7 +5,7 @@
 ## 구조
 
 - `docs/`: 아이디어 정리, PoC 판단 근거, Codex 작업지시서
-- `poc_code/`: 각 주제별 독립 Python CLI PoC
+- `poc_code/`: 각 주제별 독립 Python CLI PoC 위치
 
 ## 실행 원칙
 
@@ -13,8 +13,10 @@
 
 키 없이 구조만 확인하려면 각 PoC README의 sample/mock 실행 방식을 사용합니다.
 
-## 현재 포함된 PoC
+## 제품별 상태
 
-- `poc_code/voc_quest_poc`: VOC Quest 시장조사 파이프라인 PoC
+- `poc_code/voc_quest_poc`: VOC Quest 시장조사 파이프라인 PoC 코드 포함
+- `poc_code/becareful_poc`: Be:Careful PoC 위치와 작업지시서 연결 완료, 구현 코드 대기
+- `poc_code/date_route_poc`: 데이트 동선 탐색 PoC 위치와 작업지시서 연결 완료, 구현 코드 대기
 
-Be:Careful, 데이트 동선 탐색 PoC는 구현 결과가 준비되는 대로 같은 구조로 추가합니다.
+나머지 구현 결과가 준비되면 같은 구조로 추가합니다.
