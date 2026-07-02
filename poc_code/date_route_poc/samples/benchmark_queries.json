@@ -1,0 +1,26 @@
+[
+  {
+    "id": "seongsu_short",
+    "query": "성수역 근처 데이트 코스 짜줘",
+    "expected_region": "성수역",
+    "expected_min_stops": 2
+  },
+  {
+    "id": "seongsu_dinner_budget",
+    "query": "성수역 근처에서 저녁 데이트할 건데, 예산 12만 원 안쪽, 분위기 좋은 파스타집이랑 디저트 카페, 걸어서 이동 가능한 코스로 짜줘",
+    "expected_region": "성수역",
+    "expected_min_stops": 3
+  },
+  {
+    "id": "seongsu_quiet_walk",
+    "query": "성수역 주변 조용한 카페랑 산책 포함해서 도보 데이트 코스 3곳 추천해줘",
+    "expected_region": "성수역",
+    "expected_min_stops": 3
+  },
+  {
+    "id": "seongsu_rainy_indoor",
+    "query": "성수역에서 비 오는 날 실내 위주로 파스타랑 디저트 코스 짜줘",
+    "expected_region": "성수역",
+    "expected_min_stops": 2
+  }
+]
