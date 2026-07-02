@@ -4,8 +4,24 @@
 
 ## 구조
 
-- `docs/`: 아이디어 정리, PoC 판단 근거, Codex 작업지시서
-- `poc_code/`: 각 주제별 독립 Python CLI PoC 위치
+```text
+tecker-poc-lab/
+├─ README.md
+├─ docs/
+│  ├─ 00_아이디어_정리_인덱스.md
+│  ├─ 01_VOC_Quest.md
+│  ├─ 02_BeCareful.md
+│  ├─ 03_데이트_동선.md
+│  └─ codex_poc_instructions/
+│     └─ 각 주제별 Codex 구현 작업지시서
+└─ poc_code/
+   ├─ voc_quest_poc/
+   │  └─ VOC Quest 시장조사 파이프라인 PoC
+   ├─ becareful_poc/
+   │  └─ Be:Careful PoC 위치
+   └─ date_route_poc/
+      └─ 데이트 동선 탐색 PoC 위치
+```
 
 ## 실행 원칙
 
