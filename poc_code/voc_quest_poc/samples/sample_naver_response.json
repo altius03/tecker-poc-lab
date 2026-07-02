@@ -1,0 +1,100 @@
+{
+  "blog": {
+    "query": "브랜드A 블루 수딩 앰플 후기",
+    "items": [
+      {
+        "title": "브랜드A 블루 수딩 앰플 배송 지연 후기",
+        "link": "https://blog.naver.com/sample/1001",
+        "description": "배송이 2주나 늦고 박스도 파손되어 도착했습니다. 문의 전화 010-1234-5678 남겼는데 답이 늦었어요."
+      },
+      {
+        "title": "블루 수딩 앰플 사용 후 따가움",
+        "link": "https://blog.naver.com/sample/1002",
+        "description": "처음 바를 때 자극이 있고 다음날 트러블이 올라왔습니다. 민감성 피부에는 불편할 수 있어요."
+      },
+      {
+        "title": "브랜드A 앰플 가격은 조금 비싼 편",
+        "link": "https://blog.naver.com/sample/1003",
+        "description": "양 대비 비싸다 싶고 환불 안내가 잘 안 보여서 교환 문의까지 했습니다. 돈 아깝다는 생각이 들었어요."
+      },
+      {
+        "title": "브랜드A 블루 수딩 앰플 펌프 불량",
+        "link": "https://blog.naver.com/sample/1004",
+        "description": "펌프가 눌리지 않고 내용물이 새다 보니 포장까지 젖었습니다. 용기 불량으로 보입니다."
+      },
+      {
+        "title": "브랜드A 블루 수딩 앰플 체험단 리뷰",
+        "link": "https://blog.naver.com/sample/1005",
+        "description": "제품을 제공받아 작성한 광고 리뷰입니다. 촉촉한 제형은 좋지만 향이 강하다는 의견도 있었습니다."
+      }
+    ]
+  },
+  "cafe": {
+    "query": "브랜드A 블루 수딩 앰플 불만",
+    "items": [
+      {
+        "title": "브랜드A 블루 수딩 앰플 배송 지연 후기",
+        "link": "https://cafe.naver.com/sample/2001",
+        "description": "배송이 2주나 늦고 박스도 파손되어 도착했습니다. 문의 전화 010-1234-5678 남겼는데 답이 늦었어요."
+      },
+      {
+        "title": "진짜 빠르네요 ㅋㅋ 2주 만에 받음",
+        "link": "https://cafe.naver.com/sample/2002",
+        "description": "블루 수딩 앰플 배송 지연 때문에 행사 기간 다 지나서 받았습니다. 진짜 빠르네요 ㅋㅋ"
+      },
+      {
+        "title": "앰플 냄새랑 제형이 애매해요",
+        "link": "https://cafe.naver.com/sample/2003",
+        "description": "냄새가 생각보다 강하고 끈적한 제형이라 아침에 바르기 불편했습니다."
+      },
+      {
+        "title": "환불 안내 어디 있나요",
+        "link": "https://cafe.naver.com/sample/2004",
+        "description": "트러블 때문에 교환이나 환불하려는데 정책이 잘 안 보입니다. 주문번호 AB-2026-0702도 남겼어요."
+      },
+      {
+        "title": "포장 파손으로 왔어요",
+        "link": "https://cafe.naver.com/sample/2005",
+        "description": "택배 상자 안에서 앰플 용기가 깨져 있었습니다. 서울시 중구 테스트로 12 주소로 받은 건인데 당황스럽네요."
+      }
+    ]
+  },
+  "shop": {
+    "query": "브랜드A 블루 수딩 앰플 최저가",
+    "items": [
+      {
+        "title": "<b>브랜드A</b> 블루 수딩 앰플 50ml",
+        "link": "https://search.shopping.naver.com/catalog/3001",
+        "mallName": "브랜드A공식몰",
+        "brand": "브랜드A",
+        "maker": "브랜드A",
+        "category1": "화장품",
+        "category2": "스킨케어",
+        "category3": "앰플",
+        "lprice": "29000"
+      },
+      {
+        "title": "브랜드A 블루 수딩 앰플 펌프 리뉴얼 기획",
+        "link": "https://search.shopping.naver.com/catalog/3002",
+        "mallName": "샘플스토어",
+        "brand": "브랜드A",
+        "maker": "브랜드A",
+        "category1": "화장품",
+        "category2": "스킨케어",
+        "category3": "앰플",
+        "lprice": "27000"
+      },
+      {
+        "title": "블루 수딩 앰플 민감 피부 세트",
+        "link": "https://search.shopping.naver.com/catalog/3003",
+        "mallName": "테스트몰",
+        "brand": "브랜드A",
+        "maker": "브랜드A",
+        "category1": "화장품",
+        "category2": "스킨케어",
+        "category3": "세럼",
+        "lprice": "34000"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "source_type": "customer_voc",
+      "title": "배송 문의",
+      "text": "주문번호 A12345-789 배송이 2주째 지연되고 있습니다."
+    },
+    {
+      "source_type": "customer_voc",
+      "title": "피부 자극",
+      "text": "사용 후 따갑고 트러블이 올라와서 환불 문의합니다."
+    },
+    {
+      "source_type": "customer_voc",
+      "title": "포장 문제",
+      "text": "펌프가 불량인지 내용물이 새서 도착했습니다."
+    }
+  ]
+}

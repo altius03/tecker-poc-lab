@@ -1,0 +1,3 @@
+[submodule "poc_code/voc_quest_poc/external/insane-search"]
+	path = poc_code/voc_quest_poc/external/insane-search
+	url = https://github.com/fivetaku/insane-search.git

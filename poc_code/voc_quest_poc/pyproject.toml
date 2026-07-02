@@ -1,0 +1,31 @@
+[project]
+name = "voc-quest-poc"
+version = "0.1.0"
+description = "Python CLI PoC for VOC Quest seed-to-quest pipeline"
+requires-python = ">=3.10"
+dependencies = [
+  "requests",
+  "python-dotenv",
+  "pydantic",
+  "typer",
+  "rich"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest"
+]
+public-web = [
+  "curl_cffi>=0.15.0",
+  "beautifulsoup4",
+  "pyyaml"
+]
+
+[project.scripts]
+voc-quest = "src.run:app"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
