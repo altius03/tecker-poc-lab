@@ -39,4 +39,4 @@ techeer-poc-lab/
 
 - `poc_code/voc_quest_poc`: VOC Quest 시장조사 파이프라인 PoC 코드 포함
 - `poc_code/becareful_poc`: Be:Careful 더미 OCR + mock DUR PoC 코드 포함
-- `poc_code/date_route_poc`: 데이트 동선 탐색 Kakao Local 기반 PoC 코드 포함
+- `poc_code/date_route_poc`: 데이트 동선 탐색 Google Places + OpenAI 기반 PoC 코드 포함

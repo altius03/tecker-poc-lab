@@ -1,7 +1,7 @@
 [project]
 name = "date-route-poc"
 version = "0.1.0"
-description = "Python CLI PoC for natural-language date route planning with Kakao Local candidates."
+description = "Python CLI PoC for date-route condition capability checks with Google Places and OpenAI."
 requires-python = ">=3.11"
 dependencies = [
   "requests",
