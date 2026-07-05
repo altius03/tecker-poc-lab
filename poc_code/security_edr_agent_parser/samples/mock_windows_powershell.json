@@ -1,0 +1,47 @@
+{
+  "processes": [
+    {"ProcessId": 4, "ParentProcessId": 0, "Name": "System", "CreationDate": "2026-07-06T00:00:00+09:00"},
+    {"ProcessId": 612, "ParentProcessId": 488, "Name": "svchost.exe", "CreationDate": "2026-07-06T00:00:04+09:00"},
+    {"ProcessId": 984, "ParentProcessId": 612, "Name": "lsass.exe", "CreationDate": "2026-07-06T00:00:06+09:00"},
+    {"ProcessId": 1480, "ParentProcessId": 980, "Name": "MsMpEng.exe", "CreationDate": "2026-07-06T00:00:10+09:00"},
+    {"ProcessId": 2244, "ParentProcessId": 1112, "Name": "chrome.exe", "CreationDate": "2026-07-06T00:10:00+09:00"},
+    {"ProcessId": 3020, "ParentProcessId": 1112, "Name": "Teams.exe", "CreationDate": "2026-07-06T00:11:00+09:00"},
+    {"ProcessId": 3760, "ParentProcessId": 1112, "Name": "Code.exe", "CreationDate": "2026-07-06T00:12:00+09:00"},
+    {"ProcessId": 4188, "ParentProcessId": 3760, "Name": "node.exe", "CreationDate": "2026-07-06T00:13:00+09:00"},
+    {"ProcessId": 4916, "ParentProcessId": 1112, "Name": "powershell.exe", "CreationDate": "2026-07-06T00:14:00+09:00"},
+    {"ProcessId": 5888, "ParentProcessId": 1112, "Name": "OneDrive.exe", "CreationDate": "2026-07-06T00:15:00+09:00"},
+    {"ProcessId": 6420, "ParentProcessId": 1112, "Name": "slack.exe", "CreationDate": "2026-07-06T00:16:00+09:00"}
+  ],
+  "process_metrics": [
+    {"Id": 4, "ProcessName": "System", "CPU": 182.5, "WorkingSet64": 5242880},
+    {"Id": 612, "ProcessName": "svchost", "CPU": 40.2, "WorkingSet64": 52428800},
+    {"Id": 984, "ProcessName": "lsass", "CPU": 18.4, "WorkingSet64": 99614720},
+    {"Id": 1480, "ProcessName": "MsMpEng", "CPU": 210.1, "WorkingSet64": 1216348160},
+    {"Id": 2244, "ProcessName": "chrome", "CPU": 320.7, "WorkingSet64": 1459617792},
+    {"Id": 3020, "ProcessName": "Teams", "CPU": 84.2, "WorkingSet64": 702545920},
+    {"Id": 3760, "ProcessName": "Code", "CPU": 98.0, "WorkingSet64": 512753664},
+    {"Id": 4188, "ProcessName": "node", "CPU": 44.6, "WorkingSet64": 220200960},
+    {"Id": 4916, "ProcessName": "powershell", "CPU": 5.1, "WorkingSet64": 91226112},
+    {"Id": 5888, "ProcessName": "OneDrive", "CPU": 22.3, "WorkingSet64": 311427072},
+    {"Id": 6420, "ProcessName": "slack", "CPU": 71.4, "WorkingSet64": 658505728}
+  ],
+  "tcp_connections": [
+    {"LocalAddress": "0.0.0.0", "LocalPort": 135, "RemoteAddress": "0.0.0.0", "RemotePort": 0, "State": "Listen", "OwningProcess": 612, "CreationTime": "2026-07-06T00:20:00+09:00"},
+    {"LocalAddress": "0.0.0.0", "LocalPort": 3389, "RemoteAddress": "0.0.0.0", "RemotePort": 0, "State": "Listen", "OwningProcess": 4, "CreationTime": "2026-07-06T00:20:01+09:00"},
+    {"LocalAddress": "127.0.0.1", "LocalPort": 9222, "RemoteAddress": "0.0.0.0", "RemotePort": 0, "State": "Listen", "OwningProcess": 2244, "CreationTime": "2026-07-06T00:20:02+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 5173, "RemoteAddress": "0.0.0.0", "RemotePort": 0, "State": "Listen", "OwningProcess": 4188, "CreationTime": "2026-07-06T00:20:03+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53014, "RemoteAddress": "142.250.196.110", "RemotePort": 443, "State": "Established", "OwningProcess": 2244, "CreationTime": "2026-07-06T00:21:00+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53015, "RemoteAddress": "172.64.155.209", "RemotePort": 443, "State": "Established", "OwningProcess": 2244, "CreationTime": "2026-07-06T00:21:02+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53016, "RemoteAddress": "104.18.32.47", "RemotePort": 443, "State": "Established", "OwningProcess": 2244, "CreationTime": "2026-07-06T00:21:04+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53017, "RemoteAddress": "34.117.59.81", "RemotePort": 443, "State": "Established", "OwningProcess": 2244, "CreationTime": "2026-07-06T00:21:06+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53018, "RemoteAddress": "52.112.64.10", "RemotePort": 443, "State": "Established", "OwningProcess": 3020, "CreationTime": "2026-07-06T00:22:00+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53019, "RemoteAddress": "13.107.42.14", "RemotePort": 443, "State": "Established", "OwningProcess": 3020, "CreationTime": "2026-07-06T00:22:01+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53020, "RemoteAddress": "104.18.32.47", "RemotePort": 443, "State": "Established", "OwningProcess": 3760, "CreationTime": "2026-07-06T00:23:00+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53021, "RemoteAddress": "8.8.8.8", "RemotePort": 8443, "State": "Established", "OwningProcess": 4916, "CreationTime": "2026-07-06T00:24:00+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53022, "RemoteAddress": "1.1.1.1", "RemotePort": 4444, "State": "Established", "OwningProcess": 4916, "CreationTime": "2026-07-06T00:24:05+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53023, "RemoteAddress": "40.126.32.74", "RemotePort": 443, "State": "Established", "OwningProcess": 5888, "CreationTime": "2026-07-06T00:25:00+09:00"},
+    {"LocalAddress": "192.168.56.10", "LocalPort": 53024, "RemoteAddress": "3.108.107.38", "RemotePort": 443, "State": "Established", "OwningProcess": 6420, "CreationTime": "2026-07-06T00:26:00+09:00"}
+  ],
+  "os": {"Caption": "Microsoft Windows 11 Pro", "Version": "10.0.22631", "BuildNumber": "22631", "LastBootUpTime": "2026-07-06T00:00:00+09:00"},
+  "computer": {"Name": "DESKTOP-EDR-POC", "Manufacturer": "MockVendor", "Model": "MockModel", "Domain": "WORKGROUP"}
+}
