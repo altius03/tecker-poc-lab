@@ -1,5 +1,6 @@
+.venv/
 __pycache__/
 *.pyc
-/data/
-/dashboard.html
-/dashboard_windows.html
+.pytest_cache/
+.mypy_cache/
+outputs/
