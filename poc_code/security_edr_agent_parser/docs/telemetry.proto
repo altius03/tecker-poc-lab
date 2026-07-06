@@ -3,7 +3,12 @@ syntax = "proto3";
 package edr.telemetry.v1;
 
 service TelemetryIngestService {
+  // Primary unary batch ingest for the first implementation.
   rpc IngestTelemetry(TelemetryBundle) returns (IngestResponse);
+
+  // Optional streaming ingest when the agent moves from batch shipping to live telemetry.
+  rpc StreamTelemetry(stream TelemetryBundle) returns (IngestResponse);
+
   rpc RefreshDeviceToken(DeviceTokenRefreshRequest) returns (DeviceTokenRefreshResponse);
 }
 

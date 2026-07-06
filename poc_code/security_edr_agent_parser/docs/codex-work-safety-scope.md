@@ -88,13 +88,15 @@ Codex에게 작업을 요청할 때는 다음 전제를 같이 둡니다.
 
 주의 또는 제외:
 
-- message body
-- browser password
-- keystroke
-- clipboard
-- document body
-- 타인의 개인 파일 내용
-- 무단 HTTPS payload
+| 제외 항목 | 이유 |
+|---|---|
+| message body | 방어적 탐지보다 개인 대화/메일 원문 수집 위험이 큼 |
+| browser password | credential theft 구현과 구분이 어려움 |
+| keystroke | keylogging 구현으로 해석될 수 있음 |
+| clipboard | token/password/개인 대화가 섞일 수 있음 |
+| document body | 문서 원문 수집은 EDR metadata 수집 범위를 넘음 |
+| 타인의 개인 파일 내용 | 허가된 본인 기기 실습 범위를 넘음 |
+| 무단 HTTPS payload | 무단 감청/복호화로 보일 수 있음 |
 
 ---
 
@@ -109,6 +111,7 @@ Codex에게 작업을 요청할 때는 다음 전제를 같이 둡니다.
 - localhost proxy에서 sample request metadata 생성
 - URL, domain, method, app action 같은 metadata 분석
 - body/message content는 sample에서도 저장하지 않거나 masking
+- 임의의 HTTPS payload가 아니라 허가된 test app/proxy record만 사용
 
 ---
 
@@ -119,7 +122,7 @@ mTLS와 token refresh는 공격 기능이 아니라 device identity를 확인하
 허용되는 방향:
 
 - local self-signed cert 생성
-- customer_id / device_id / agent_version header 설계
+- customer_id / device_id / agent_version gRPC metadata 설계
 - OpenAPI/proto 문서화
 - collector가 certificate subject/fingerprint를 확인하는 구조 설계
 

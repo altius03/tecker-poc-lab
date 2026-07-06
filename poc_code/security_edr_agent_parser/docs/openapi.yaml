@@ -3,14 +3,18 @@ info:
   title: EDR Agent Parser Collector API
   version: 0.1.0
   description: >
-    PoC collector API contract. Runtime server implementation is not included yet;
-    this file documents the ingestion contract for Swagger/OpenAPI review.
+    Secondary HTTP API contract for Swagger/OpenAPI review. Primary telemetry
+    ingestion is gRPC + mTLS; HTTP endpoints are for health, admin/debug,
+    report download, and local fallback only.
 servers:
   - url: https://collector.example.local
 paths:
   /v1/telemetry:ingest:
     post:
-      summary: Ingest gzipped endpoint telemetry bundle
+      summary: Debug fallback ingest for gzipped endpoint telemetry bundle
+      description: >
+        Primary telemetry ingestion uses gRPC + mTLS. This HTTP endpoint exists
+        only for local fallback, manual Swagger review, and debug testing.
       operationId: ingestTelemetry
       parameters:
         - name: X-EDR-Agent-Version

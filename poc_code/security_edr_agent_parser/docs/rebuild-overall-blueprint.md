@@ -102,7 +102,7 @@ Agent
   v
 Transport
   |
-  | 3. customer/device/version header와 인증서 기반으로 전송
+  | 3. customer/device/version gRPC metadata와 인증서 기반으로 전송
   v
 Collector
   |
@@ -137,7 +137,7 @@ flowchart LR
     FILE --> AGENT
   end
 
-  AGENT -->|"Telemetry Event Batch<br/>customer_id, device_id, agent_version"| TRANSPORT["Transport<br/>gRPC/mTLS or REST/gzip"]
+  AGENT -->|"Telemetry Event Batch<br/>customer_id, device_id, agent_version"| TRANSPORT["Transport<br/>gRPC + mTLS"]
   TRANSPORT --> COLLECTOR["Collector API"]
 
   subgraph BACKEND["Backend"]
@@ -184,12 +184,18 @@ Agent는 client PC 안에서 동작합니다.
 
 Agent가 수집하지 말아야 할 것:
 
-- message body
-- browser password
-- keystroke
-- clipboard
-- document body
-- 임의의 HTTPS payload
+| 제외 항목 | 수집하지 않는 이유 | 대신 수집할 수 있는 metadata |
+|---|---|---|
+| message body | 메신저/메일/채팅 본문 수집은 EDR을 넘어 spyware처럼 보이며, 탐지에 필요한 신호보다 민감 원문이 많음 | app name, process, destination domain, request time, byte count, policy match |
+| browser password | password store 접근은 credential theft와 구분이 어렵고 포트폴리오/학습 PoC에 불필요함 | browser process, suspicious extension/process, known credential-stealer IOC |
+| keystroke | keylogging은 공격 행위와 동일하게 보일 수 있고 방어적 EDR demo 가치가 낮음 | process start, parent process, command line, network connection |
+| clipboard | token, password, 개인 대화가 섞일 수 있으며 수집 목적을 설명하기 어려움 | paste 행위 자체가 필요한 경우에도 count/시각 같은 synthetic event만 사용 |
+| document body | 문서 원문은 회사/개인 정보가 바로 포함될 수 있고 저장/전송 부담이 큼 | file path category, extension, size, hash, created/modified time |
+| 임의의 HTTPS payload | 무작위 복호화 payload는 로그인 정보, 메시지, 결제 정보가 섞일 수 있고 무단 감청으로 보일 수 있음 | SNI/domain, URL path, method, status, content-type, byte count, hash, rule match |
+
+핵심은 "탐지에 필요한 신호는 남기고, 원문 내용은 버린다"입니다.
+이 프로젝트는 학습용이어도 Codex와 평가자가 볼 때 방어적 EDR로 보여야 하므로, 본문/비밀번호/키 입력/클립보드 같은 데이터는 수집하지 않습니다.
+L7 분석은 허가된 로컬 proxy나 test app에서 생성한 record를 기준으로 하고, 저장되는 event에는 원문 body 대신 metadata와 hash만 남깁니다.
 
 ---
 
@@ -197,8 +203,9 @@ Agent가 수집하지 말아야 할 것:
 
 Transport는 Agent가 Collector로 데이터를 보내는 구간입니다.
 
-PoC 단계에서는 REST + gzip으로 충분합니다.
-하지만 기기 단위 인증이 중요하므로 운영 설계는 gRPC + mTLS가 더 적합합니다.
+결정: 1차 신규 구현의 기본 transport는 `gRPC + mTLS`입니다.
+REST + gzip은 Swagger 설명, local debug, health check, report download 같은 보조 API에만 사용합니다.
+telemetry ingestion 자체는 gRPC service를 기준으로 설계합니다.
 
 필수 metadata:
 
@@ -210,14 +217,13 @@ PoC 단계에서는 REST + gzip으로 충분합니다.
 | `schema_version` | event schema 버전 |
 | `sent_at` | 전송 시각 |
 
-Header 예시:
+gRPC metadata 예시:
 
 ```text
-X-EDR-Customer-Id: acme-demo
-X-EDR-Device-Id: kim-minjun-finance-laptop
-X-EDR-Agent-Version: 0.1.0
-X-EDR-Envelope-Version: 2026-07-telemetry-v1
-Content-Encoding: gzip
+edr-customer-id: acme-demo
+edr-device-id: kim-minjun-finance-laptop
+edr-agent-version: 0.1.0
+edr-envelope-version: 2026-07-telemetry-v1
 ```
 
 ---
@@ -229,7 +235,7 @@ Collector는 Agent가 보낸 telemetry를 받는 서버입니다.
 역할:
 
 - 인증서 또는 token 확인
-- header 확인
+- gRPC metadata 확인
 - schema validation
 - 중복 event 제거
 - 저장소에 적재
@@ -244,8 +250,8 @@ Collector에서 중요한 것은 “일단 받은 데이터를 잃지 않는 것
 
 Event Store는 telemetry를 저장하는 계층입니다.
 
-처음에는 SQLite나 JSONL로 시작할 수 있습니다.
-다음 단계에서는 PostgreSQL 또는 검색용 store로 바꿀 수 있습니다.
+기본 저장소는 PostgreSQL로 확정합니다.
+SQLite는 unit test나 Docker가 없는 local fallback에만 사용합니다.
 
 초기 저장 단위:
 
@@ -461,21 +467,25 @@ device certificate로 token refresh 요청
 
 ---
 
-## 10. REST와 gRPC 선택
+## 10. Transport 선택 확정
 
-초기 PoC:
+선택: `gRPC + mTLS`를 1차 구현 기준으로 확정합니다.
 
-- REST + gzip
-- OpenAPI로 Swagger 문서화
-- 구현과 테스트가 쉬움
+이유:
 
-다음 단계:
+- device certificate로 기기 신원을 확인하기 좋음
+- customer/device/version metadata를 gRPC metadata로 강제하기 좋음
+- telemetry event batch와 streaming 전송으로 확장하기 좋음
+- protobuf schema로 Agent와 Collector 사이 contract를 고정하기 좋음
+- 매 요청마다 ID/PW를 넣는 REST 방식보다 기기 기반 EDR에 더 맞음
 
-- gRPC + mTLS
-- protobuf schema 사용
-- streaming telemetry로 확장 가능
+REST/OpenAPI의 역할:
 
-정리하면, 발표 PoC는 REST로 빠르게 보여주고, 기술 설계는 gRPC/mTLS로 확장 가능하게 잡습니다.
+- Swagger 문서화
+- health check
+- admin/debug endpoint
+- report download
+- local demo fallback
 
 ---
 
@@ -517,7 +527,8 @@ security_edr_agent_parser/
 
 - 서비스 범위 EDR로 고정
 - event schema 정의
-- OpenAPI/proto 초안 정리
+- protobuf schema 확정
+- OpenAPI는 보조 API 문서로 정리
 - dashboard 첫 화면 wireframe 확정
 
 ### Phase 2. Agent 수집
@@ -530,10 +541,11 @@ security_edr_agent_parser/
 
 ### Phase 3. Collector
 
-- `/v1/telemetry:ingest` 구현
+- `TelemetryIngestService/IngestTelemetry` 구현
 - schema validation
 - DLQ 저장
-- customer/device/version header 처리
+- customer/device/version gRPC metadata 처리
+- mTLS client certificate 검증
 
 ### Phase 4. Detection + SIEM
 
@@ -557,7 +569,7 @@ security_edr_agent_parser/
 - local cert 생성
 - collector mTLS 검증
 - token refresh 설계 적용
-- gRPC 전환 검토
+- certificate rotation과 token refresh 흐름 검증
 
 ---
 
@@ -570,21 +582,23 @@ security_edr_agent_parser/
 5. Alert 클릭 시 우상단 inspector에 rule/severity/기기 표시
 6. Report popup 열기
 7. PDF 저장
-8. OpenAPI/gRPC/mTLS 설계 문서로 확장 가능성 설명
+8. gRPC/mTLS 기반 transport와 OpenAPI 보조 API 설명
 
 ---
 
-## 14. 아직 결정해야 할 질문
+## 14. 확정된 구현 결정
 
-다음은 구현 전에 팀에서 정해야 합니다.
+다음 결정은 신규 구현의 기준입니다.
 
-1. 초기 backend는 Python FastAPI로 갈지, Node/NestJS로 갈지
-2. DB는 SQLite로 시작할지 PostgreSQL로 시작할지
-3. gRPC를 1차 구현에 넣을지, REST 이후 2차로 미룰지
-4. 인증서는 PEM 기준으로 갈지, Windows PFX/cert store 기준으로 갈지
-5. Dashboard는 정적 HTML로 유지할지, React/Vite로 다시 만들지
-6. 실제 팀원 이름을 sample에 넣을지, 가명으로 유지할지
-7. HTTPS/L7 분석을 어느 수준까지 발표 범위에 넣을지
+| 항목 | 결정 |
+|---|---|
+| Backend | Python 3.11 collector로 구현. gRPC server가 primary이고, FastAPI/OpenAPI는 health/admin/report/debug 보조 API로만 사용 |
+| DB | PostgreSQL을 기본 저장소로 사용. SQLite는 unit test나 Docker가 없는 local fallback에만 사용 |
+| Transport | 1차 구현부터 `gRPC + mTLS` 사용. REST ingestion은 기본 경로로 두지 않음 |
+| Certificate | PoC 구현은 PEM file 기준. Windows cert store/PFX는 패키징 단계에서 추가 검토 |
+| Dashboard | React + Vite + TypeScript SPA로 신규 구현. 정적 HTML은 reference artifact로만 유지 |
+| Sample identity | 실제 사람처럼 구분 가능한 한국어 가명 사용. 실제 팀원/지인 개인정보는 넣지 않음 |
+| HTTPS/L7 분석 | 허가된 local proxy/test app/sample record만 사용. 저장 event는 URL/method/status/content-type/size/hash/rule match metadata 중심, raw body는 저장하지 않음 |
 
 ---
 

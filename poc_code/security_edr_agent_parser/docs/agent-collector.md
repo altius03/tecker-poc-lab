@@ -99,13 +99,16 @@ PoC에서는 이 값을 `dns_query` event로 바꿉니다.
 
 ## 수집하지 않는 것
 
-| 제외 항목 | 이유 |
-|---|---|
-| HTTPS body | 개인정보와 민감정보 포함 가능 |
-| chat/message content | 개인정보 보호 |
-| keystroke | EDR PoC 범위 밖 |
-| clipboard | 과도한 민감정보 수집 |
-| document body | 원문 수집 방지 |
+| 제외 항목 | 수집하지 않는 이유 | 대신 수집할 수 있는 metadata |
+|---|---|---|
+| message body / chat content | 개인 대화 원문은 EDR 탐지보다 민감정보 노출 위험이 큼 | app name, process, destination domain, byte count, policy match |
+| browser password | credential theft와 구분이 어렵고 방어적 PoC에 필요하지 않음 | browser process, suspicious extension/process, known credential-stealer IOC |
+| keystroke | keylogging은 공격 행위와 동일하게 보일 수 있음 | process start, parent process, command line |
+| clipboard | token/password/개인 대화가 섞일 수 있음 | 필요한 경우 synthetic event의 count/time만 사용 |
+| document body | 문서 원문은 회사/개인 정보가 바로 포함될 수 있음 | file path category, extension, size, hash, created/modified time |
+| 임의의 HTTPS payload / HTTPS body | 무작위 복호화 payload는 무단 감청처럼 보이고 로그인/결제/메시지가 섞일 수 있음 | SNI/domain, URL path, method, status, content-type, byte count, hash, rule match |
+
+Agent의 기준은 원문 내용 수집이 아니라 보안 판단에 필요한 metadata 수집입니다.
 
 ## Agent와 Report 분리
 
@@ -113,7 +116,7 @@ Agent collector의 책임:
 
 - client PC에서 telemetry metadata 수집
 - event schema로 변환
-- customer/device/version header와 함께 전송 준비
+- customer/device/version gRPC metadata와 함께 전송 준비
 
 Report의 책임:
 

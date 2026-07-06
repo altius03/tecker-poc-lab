@@ -5,22 +5,26 @@
 이 서비스는 사용자 계정이 아니라 기기 단위로 telemetry를 보냅니다.
 따라서 매 요청마다 ID/PW를 넣는 방식보다, 기기 인증서로 device identity를 증명하는 mTLS가 더 적합합니다.
 
-## PoC에서 구현한 범위
+## 신규 구현 기준
 
-`src/pipeline.py`는 gzip bundle을 전송할 때 다음 header를 붙입니다.
+신규 구현에서 telemetry ingestion은 gRPC + mTLS를 기본 경로로 사용합니다.
+Agent는 gRPC metadata와 client certificate를 함께 전달합니다.
 
-| Header | 의미 |
+| gRPC metadata | 의미 |
 |---|---|
-| X-EDR-Agent-Version | agent/parser version |
-| X-EDR-Customer-Id | 고객사 또는 tenant 구분 |
-| X-EDR-Device-Id | client device 구분 |
-| X-EDR-Envelope-Version | telemetry schema version |
-| Content-Encoding | gzip |
+| edr-agent-version | agent/parser version |
+| edr-customer-id | 고객사 또는 tenant 구분 |
+| edr-device-id | client device 구분 |
+| edr-envelope-version | telemetry schema version |
 
-실행 예시:
+호출 흐름:
 
-```powershell
-python -m src.run --ship-url https://collector.example.local/v1/telemetry:ingest --customer-id acme-demo --device-id kim-minjun-finance-laptop --agent-version 0.1.0 --client-cert certs\device.crt --client-key certs\device.key
+```text
+Agent
+-> mTLS connection with device certificate
+-> gRPC metadata: customer_id, device_id, agent_version, envelope_version
+-> TelemetryIngestService/IngestTelemetry
+-> Collector validates certificate fingerprint and metadata match
 ```
 
 ## Local cert 생성
@@ -69,7 +73,7 @@ PoC 적용 순서:
 2. device별 client certificate 발급
 3. collector에 허용된 customer_id, device_id, cert fingerprint 등록
 4. agent가 mTLS로 telemetry bundle 전송
-5. collector가 header와 cert subject/fingerprint를 함께 검증
+5. collector가 gRPC metadata와 cert subject/fingerprint를 함께 검증
 
 ## Token refresh
 
@@ -88,14 +92,25 @@ gRPC 설계에서는 다음 RPC가 같은 역할입니다.
 RefreshDeviceToken(DeviceTokenRefreshRequest) returns (DeviceTokenRefreshResponse)
 ```
 
-## REST vs gRPC
+## Transport 결정
 
-PoC는 지금 Python 표준 라이브러리만 쓰기 때문에 REST/gzip shipping까지만 실행됩니다.
-운영형 collector로 가면 gRPC + mTLS가 더 자연스럽습니다.
+신규 구현의 primary transport는 `gRPC + mTLS`입니다.
+REST/gzip shipping은 local debug, Swagger 설명, health check, report download 같은 보조 경로로만 둡니다.
 
 이유:
 
 - device identity를 mTLS로 검증하기 좋음
 - streaming telemetry로 확장 가능
 - protobuf schema로 event contract를 강제하기 쉬움
-- customer/device/version metadata를 metadata header로 관리 가능
+- customer/device/version 값을 gRPC metadata로 관리 가능
+- 매 요청마다 ID/PW를 넣는 방식보다 device 기반 EDR에 적합함
+
+확정된 역할 분리는 다음과 같습니다.
+
+| 영역 | 결정 |
+|---|---|
+| Telemetry ingestion | gRPC `TelemetryIngestService/IngestTelemetry` |
+| Device token refresh | gRPC `RefreshDeviceToken` |
+| Device identity | mTLS client certificate |
+| Short-lived authorization | refresh된 access token |
+| Swagger/OpenAPI | health/admin/report/debug 보조 API 문서화 |
