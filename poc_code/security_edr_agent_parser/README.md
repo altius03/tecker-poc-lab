@@ -349,6 +349,7 @@ security_edr_agent_parser/
 | 문서 | 내용 |
 |------|------|
 | `docs/rebuild-overall-blueprint.md` | 처음부터 다시 구현하기 위한 전체 설계도 |
+| `docs/codex-work-safety-scope.md` | Codex 작업 시 학습용/방어적 범위를 명확히 하는 기준 |
 | `docs/agent-collector.md` | Win32_Process, Get-NetTCPConnection, DNS cache 수집 설명 |
 | `docs/reporting.md` | report 생성, popup, PDF 저장 방식 |
 | `docs/openapi.yaml` | Swagger/OpenAPI ingestion 명세 |
