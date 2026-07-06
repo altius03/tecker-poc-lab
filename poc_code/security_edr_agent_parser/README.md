@@ -348,6 +348,7 @@ security_edr_agent_parser/
 
 | 문서 | 내용 |
 |------|------|
+| `docs/rebuild-overall-blueprint.md` | 처음부터 다시 구현하기 위한 전체 설계도 |
 | `docs/agent-collector.md` | Win32_Process, Get-NetTCPConnection, DNS cache 수집 설명 |
 | `docs/reporting.md` | report 생성, popup, PDF 저장 방식 |
 | `docs/openapi.yaml` | Swagger/OpenAPI ingestion 명세 |
