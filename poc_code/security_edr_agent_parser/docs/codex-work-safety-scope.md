@@ -14,7 +14,8 @@
 | 목적 | 학습, 취업용 포트폴리오, 발표용 PoC |
 | 대상 | 본인 기기 또는 명시적으로 허가된 실습 환경 |
 | 제품 범위 | EDR Agent, telemetry parser, detection, SIEM-style analysis, dashboard, report |
-| 운영 범위 | 상용 배포 아님 |
+| 운영 범위 | 상용 운영/고객사 배포 아님 |
+| 실행 인프라 | Docker, Docker Compose, AWS는 PoC 실행/데모/검증 용도로 사용 가능 |
 | 데이터 | sample data 또는 본인 기기에서 직접 수집한 metadata |
 
 ---
