@@ -4,3 +4,9 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 outputs/
+certs/
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx

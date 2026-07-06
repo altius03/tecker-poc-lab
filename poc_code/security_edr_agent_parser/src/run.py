@@ -15,6 +15,7 @@ from .pipeline import build_pipeline_bundle
 from .response_engine import build_response_plan
 from .result_writer import write_result
 from .sample_loader import SampleLoadError, load_events
+from .siem_analyzer import build_siem_analysis
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -30,6 +31,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--response-mode", choices=["dry-run", "queued"], default="dry-run", help="Response action mode.")
     parser.add_argument("--no-pipeline-bundle", action="store_true", help="Do not write gzip telemetry pipeline bundle.")
     parser.add_argument("--ship-url", help="Optional HTTP endpoint that receives gzip telemetry bundle.")
+    parser.add_argument("--customer-id", default="demo-customer", help="Customer or tenant identifier for telemetry headers.")
+    parser.add_argument("--device-id", default="", help="Device identifier for telemetry headers.")
+    parser.add_argument("--agent-version", default="0.1.0", help="EDR agent/parser version for telemetry headers.")
+    parser.add_argument("--client-cert", help="Optional mTLS client certificate path for HTTPS shipping.")
+    parser.add_argument("--client-key", help="Optional mTLS client private key path for HTTPS shipping.")
     args = parser.parse_args(argv)
 
     input_meta: dict[str, Any] = {}
@@ -56,8 +62,24 @@ def main(argv: list[str] | None = None) -> int:
         result["summary"]["response_action_count"] = result["response_plan"]["action_count"]
         result["summary"]["ai_prediction_count"] = result["ai_predictions"]["prediction_count"]
         result["summary"]["predicted_high_or_critical_count"] = result["ai_predictions"]["high_or_critical_count"]
+        result["telemetry_context"] = {
+            "customer_id": args.customer_id,
+            "device_id": args.device_id or _default_device_id(result),
+            "agent_version": args.agent_version,
+            "transport": "gzip-http" if args.ship_url else "local-file",
+            "auth_mode": "mtls" if args.client_cert else "none",
+        }
+        result["siem_analysis"] = build_siem_analysis(result)
         if not args.no_pipeline_bundle:
-            result["pipeline_delivery"] = build_pipeline_bundle(result, ship_url=args.ship_url)
+            result["pipeline_delivery"] = build_pipeline_bundle(
+                result,
+                ship_url=args.ship_url,
+                customer_id=args.customer_id,
+                device_id=args.device_id or _default_device_id(result),
+                agent_version=args.agent_version,
+                client_cert=args.client_cert,
+                client_key=args.client_key,
+            )
         paths = write_result(result)
         _print_result(paths, result["status"], result.get("decision", ""))
         return 0
@@ -169,6 +191,13 @@ def _print_result(paths: dict[str, Path], status: str, decision: str) -> None:
     print(f"latest={paths['latest_path']}")
     print(f"run={paths['run_path']}")
     print(f"dashboard={paths['index_path']}")
+
+
+def _default_device_id(result: dict[str, Any]) -> str:
+    hosts = [row.get("host_id") for row in result.get("endpoint_risk", []) if row.get("host_id")]
+    if len(hosts) == 1:
+        return str(hosts[0])
+    return "multi-endpoint-sample"
 
 
 if __name__ == "__main__":

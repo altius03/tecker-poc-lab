@@ -4,9 +4,11 @@
   const state = {
     host: "all",
     severity: "all",
-    timeRange: "all",
+    timeRange: "24h",
     search: "",
     selectedAlertId: null,
+    reportHtmlHref: "",
+    reportMarkdownHref: "",
   };
 
   const ruleKorean = {
@@ -36,7 +38,8 @@
   render();
 
   function initializeControls() {
-    setText("run-status", `상태: ${result.status || "unknown"}`);
+    const edrState = result.siem_analysis?.edr_state || {};
+    setText("run-status", `EDR 상태: ${edrState.level || "UNKNOWN"} · pipeline ${result.status || "unknown"}`);
     setText("run-time", `생성: ${formatTime(result.generated_at)}`);
     setText("run-source", `입력: ${sourceLabel(result.input)}`);
 
@@ -50,7 +53,6 @@
     initializeReportLinks();
 
     const hostFilter = document.getElementById("host-filter");
-    const severityFilter = document.getElementById("severity-filter");
     const timeRange = document.getElementById("time-range");
     const searchInput = document.getElementById("search-input");
 
@@ -71,13 +73,7 @@
       });
     }
 
-    if (severityFilter) {
-      severityFilter.addEventListener("change", () => {
-        state.severity = severityFilter.value;
-        state.selectedAlertId = null;
-        render();
-      });
-    }
+    initializeSeverityToggle();
 
     if (timeRange) {
       timeRange.addEventListener("change", () => {
@@ -102,6 +98,8 @@
     const filteredEndpoints = filterEndpoints(result.endpoint_risk || [], filteredAlerts, filteredEvents);
 
     renderSignals();
+    renderTopology(filteredEvents, filteredAlerts, filteredEndpoints);
+    renderSiemAnalysis();
     renderIncidentQueue(result.incidents || [], filteredAlerts, filteredEndpoints);
     renderReportCenter();
     renderEventVolume(filteredEvents, filteredAlerts);
@@ -113,6 +111,7 @@
     renderCompactList("ips", filterRankedRows(result.top_suspicious_ips || [], "ip"), "ip");
     renderDlq(result.dlq_events || []);
     renderAlerts(filteredAlerts);
+    renderSelectedAlertSummary(filteredAlerts);
     renderProcessTree(filterProcessRows(result.process_trees || []));
     renderEventLog(filteredEvents);
 
@@ -125,9 +124,38 @@
     const markdownPath = result.report?.latest_markdown_path;
     const htmlHref = pathToFileUrl(htmlPath) || "../outputs/reports/latest/security_report.html";
     const markdownHref = pathToFileUrl(markdownPath) || "../outputs/reports/latest/security_report.md";
-    setLink("top-report-link", htmlHref);
-    setLink("report-html-link", htmlHref);
+    state.reportHtmlHref = htmlHref;
+    state.reportMarkdownHref = markdownHref;
     setLink("report-md-link", markdownHref);
+    setLink("modal-report-new-window", htmlHref);
+    const frame = document.getElementById("report-frame");
+    if (frame) frame.setAttribute("src", htmlHref);
+    ["top-report-open", "report-html-link"].forEach((id) => {
+      const node = document.getElementById(id);
+      if (node) node.addEventListener("click", openReportModal);
+    });
+    ["top-report-pdf", "report-pdf-button", "modal-report-print"].forEach((id) => {
+      const node = document.getElementById(id);
+      if (node) node.addEventListener("click", printReport);
+    });
+    document.querySelectorAll("[data-close-report]").forEach((node) => {
+      node.addEventListener("click", closeReportModal);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeReportModal();
+    });
+  }
+
+  function initializeSeverityToggle() {
+    document.querySelectorAll("[data-severity]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.severity = button.getAttribute("data-severity") || "all";
+        state.selectedAlertId = null;
+        document.querySelectorAll("[data-severity]").forEach((node) => node.classList.remove("active"));
+        button.classList.add("active");
+        render();
+      });
+    });
   }
 
   function renderSignals() {
@@ -139,11 +167,95 @@
     const dlqCount = summary.dlq_event_count || 0;
     const pipeline = result.pipeline_delivery || {};
     const ai = result.ai_predictions || {};
+    const edrState = result.siem_analysis?.edr_state || {};
 
     setText("signal-agent", processEvents ? `활성 · process ${processEvents}` : "제한됨");
-    setText("signal-correlation", l7Events ? `L7 ${l7Events} events` : incidents.length ? `상관분석 ${incidents.length}건` : networkEvents ? "telemetry 연결됨" : "대기 중");
+    setText("signal-correlation", edrState.level ? `${edrState.level} · ${edrState.highest_risk_score || 0}` : l7Events ? `L7 ${l7Events} events` : incidents.length ? `상관분석 ${incidents.length}건` : networkEvents ? "telemetry 연결됨" : "대기 중");
     setText("signal-siem", pipeline.compressed_bytes ? `gzip ${formatBytes(pipeline.compressed_bytes)}` : dlqCount ? `DLQ ${dlqCount}건 확인 필요` : "정상 수집");
     setText("signal-mitre", ai.high_or_critical_count ? `AI high ${ai.high_or_critical_count}` : mitre.length ? `${mitre.length}개 tactic` : "매핑 없음");
+  }
+
+  function renderTopology(events, alerts, endpoints) {
+    const root = document.getElementById("topology-map");
+    if (!root) return;
+    const topology = buildTopology(events, alerts, endpoints);
+    const computerNodes = topology.nodes.filter((node) => node.group === "computer");
+    const insideNodes = topology.nodes.filter((node) => node.group === "inside");
+    const outsideNodes = topology.nodes.filter((node) => node.group === "outside").slice(0, 8);
+    setText("topology-status", `${topology.edges.length} flows · ${topology.edges.filter((edge) => edge.status === "alert").length} alert`);
+
+    root.innerHTML = `
+      ${topologyLane("컴퓨터", computerNodes)}
+      <div class="topology-arrow">-></div>
+      ${topologyLane("우리 내부", insideNodes.length ? insideNodes : [{ label: "우리 내부 서비스", status: "not_detected", risk_score: 0 }])}
+      <div class="topology-arrow">-></div>
+      ${topologyLane("나가는 거", outsideNodes)}
+      <div class="topology-edge-list span-12">
+        ${topology.edges
+          .slice(0, 8)
+          .map(
+            (edge) => `
+              <div class="topology-edge ${escapeHtml(edge.status)}">
+                <span>${escapeHtml(edge.source)} -> ${escapeHtml(edge.target)}</span>
+                <strong>${escapeHtml(edge.event_count)}건 · ${escapeHtml(formatBytes(edge.bytes_out))}</strong>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
+    `;
+  }
+
+  function topologyLane(title, nodes) {
+    return `
+      <section class="topology-lane">
+        <h3>${escapeHtml(title)}</h3>
+        <div class="topology-node-list">
+          ${
+            nodes.length
+              ? nodes
+                  .map(
+                    (node) => `
+                      <article class="topology-node ${escapeHtml(node.status || "not_detected")}">
+                        <div class="topology-node-title">${escapeHtml(node.label || node.id)}</div>
+                        <div class="muted">${escapeHtml(node.status === "alert" ? "ALERT" : "NOT DETECTED")} · Risk ${escapeHtml(node.risk_score || 0)}</div>
+                      </article>
+                    `,
+                  )
+                  .join("")
+              : empty("표시할 node가 없습니다.")
+          }
+        </div>
+      </section>
+    `;
+  }
+
+  function renderSiemAnalysis() {
+    const root = document.getElementById("siem-analysis");
+    if (!root) return;
+    const analysis = result.siem_analysis || {};
+    const findings = analysis.query_findings || [];
+    const windowInfo = analysis.time_window || {};
+    setText("siem-window", windowInfo.duration_minutes ? `${windowInfo.duration_minutes}분 window` : "sample window");
+    if (!findings.length) {
+      root.innerHTML = empty("SIEM query finding이 없습니다.");
+      return;
+    }
+    root.innerHTML = findings
+      .map(
+        (finding) => `
+          <article class="siem-card ${escapeHtml(finding.severity || "info")}">
+            <div class="siem-card-code">${escapeHtml(finding.query_id || "-")}</div>
+            <div class="siem-card-title">${escapeHtml(finding.title || "-")}</div>
+            <div class="row-top">
+              <span class="pill severity-${escapeHtml(finding.severity || "info")}">${escapeHtml(finding.severity || "info")}</span>
+              <span class="count-badge">${escapeHtml(finding.count || 0)}</span>
+            </div>
+            <div class="muted">${escapeHtml(finding.logic || "-")}</div>
+          </article>
+        `,
+      )
+      .join("");
   }
 
   function renderIncidentQueue(incidents, alerts, endpoints) {
@@ -569,9 +681,25 @@
     root.querySelectorAll("[data-alert-id]").forEach((node) => {
       node.addEventListener("click", () => {
         state.selectedAlertId = node.getAttribute("data-alert-id");
-        renderAlerts(rows);
+        render();
       });
     });
+  }
+
+  function renderSelectedAlertSummary(alerts) {
+    const root = document.getElementById("selected-alert-summary");
+    if (!root) return;
+    root.classList.remove("red", "amber", "green");
+    const selected = alerts.find((alert) => alert.alert_id === state.selectedAlertId) || alerts[0];
+    if (!selected) {
+      root.textContent = "Alert 선택 대기 · 현재 필터에는 alert 없음";
+      root.classList.add("green");
+      return;
+    }
+    state.selectedAlertId = selected.alert_id;
+    const tone = selected.severity === "critical" ? "red" : selected.severity === "warning" ? "amber" : "green";
+    root.classList.add(tone);
+    root.textContent = `${selected.alert_id} · ${selected.rule_id} · ${selected.severity.toUpperCase()} · ${selected.host_id}`;
   }
 
   function renderProcessTree(rows) {
@@ -624,9 +752,87 @@
 
   function matchesTimeRange(value) {
     if (state.timeRange === "all") return true;
-    const hour = new Date(value).getHours();
-    const isWork = hour >= 7 && hour < 20;
-    return state.timeRange === "work" ? isWork : !isWork;
+    const minutes = timeRangeMinutes(state.timeRange);
+    if (!minutes) return true;
+    const eventTime = new Date(value).getTime();
+    const anchor = timeAnchor();
+    if (Number.isNaN(eventTime) || !anchor) return false;
+    return eventTime >= anchor - minutes * 60 * 1000;
+  }
+
+  function timeRangeMinutes(range) {
+    const ranges = {
+      "10m": 10,
+      "1h": 60,
+      "24h": 24 * 60,
+    };
+    return ranges[range] || 0;
+  }
+
+  function timeAnchor() {
+    const values = [...(result.events || []), ...(result.alerts || [])]
+      .map((item) => new Date(item.event_time).getTime())
+      .filter((value) => !Number.isNaN(value));
+    if (!values.length) return 0;
+    return Math.max(...values);
+  }
+
+  function buildTopology(events, alerts, endpoints) {
+    const riskByHost = new Map(endpoints.map((row) => [row.host_id, row]));
+    const alertedEventIds = new Set(alerts.flatMap((alert) => alert.event_ids || []));
+    const nodes = new Map();
+    const edges = new Map();
+    for (const event of events) {
+      const host = event.host_id || "unknown-host";
+      const risk = riskByHost.get(host) || {};
+      ensureTopologyNode(nodes, host, {
+        id: host,
+        label: host,
+        group: "computer",
+        status: ["critical", "warning", "suspicious"].includes(risk.severity) ? "alert" : "not_detected",
+        risk_score: risk.risk_score || 0,
+      });
+      const destination = event.domain || event.dst_ip;
+      if (!destination) continue;
+      const inside = isInternalDestination(destination);
+      const target = inside ? "우리 내부 서비스" : destination;
+      const status = alertedEventIds.has(event.event_id) ? "alert" : "not_detected";
+      ensureTopologyNode(nodes, target, {
+        id: target,
+        label: target,
+        group: inside ? "inside" : "outside",
+        status,
+        risk_score: 0,
+      });
+      const edgeKey = `${host}::${target}`;
+      if (!edges.has(edgeKey)) {
+        edges.set(edgeKey, { source: host, target, event_count: 0, bytes_out: 0, status: "not_detected" });
+      }
+      const edge = edges.get(edgeKey);
+      edge.event_count += 1;
+      edge.bytes_out += Number(event.bytes_out || 0);
+      if (status === "alert") edge.status = "alert";
+    }
+    const fallback = result.siem_analysis?.topology || {};
+    return {
+      nodes: nodes.size ? Array.from(nodes.values()) : fallback.nodes || [],
+      edges: edges.size ? Array.from(edges.values()).sort((a, b) => b.bytes_out - a.bytes_out) : fallback.edges || [],
+    };
+  }
+
+  function ensureTopologyNode(nodes, id, node) {
+    const current = nodes.get(id);
+    if (!current) {
+      nodes.set(id, node);
+      return;
+    }
+    current.risk_score = Math.max(Number(current.risk_score || 0), Number(node.risk_score || 0));
+    if (node.status === "alert") current.status = "alert";
+  }
+
+  function isInternalDestination(value) {
+    const text = String(value || "");
+    return text.endsWith(".company.test") || text.startsWith("10.") || text.startsWith("192.168.") || /^172\.(1[6-9]|2\d|3[0-1])\./.test(text);
   }
 
   function matchesSearch(value) {
@@ -731,6 +937,42 @@
   function setLink(id, href) {
     const node = document.getElementById(id);
     if (node && href) node.setAttribute("href", href);
+  }
+
+  function openReportModal() {
+    const modal = document.getElementById("report-modal");
+    const frame = document.getElementById("report-frame");
+    if (frame && state.reportHtmlHref) frame.setAttribute("src", state.reportHtmlHref);
+    if (modal) {
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+    }
+  }
+
+  function closeReportModal() {
+    const modal = document.getElementById("report-modal");
+    if (modal) {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  function printReport() {
+    openReportModal();
+    const frame = document.getElementById("report-frame");
+    window.setTimeout(() => {
+      try {
+        if (frame?.contentWindow) {
+          frame.contentWindow.focus();
+          frame.contentWindow.print();
+          return;
+        }
+      } catch (error) {
+        window.open(state.reportHtmlHref, "_blank", "noopener,noreferrer");
+        return;
+      }
+      window.open(state.reportHtmlHref, "_blank", "noopener,noreferrer");
+    }, 250);
   }
 
   function empty(message) {

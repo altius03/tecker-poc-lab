@@ -41,6 +41,8 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
     response_plan = payload.get("response_plan", {})
     ai_predictions = payload.get("ai_predictions", {})
     pipeline_delivery = payload.get("pipeline_delivery", {})
+    siem_analysis = payload.get("siem_analysis", {})
+    edr_state = siem_analysis.get("edr_state", {})
     generated_at = payload.get("generated_at") or datetime.now().isoformat(timespec="seconds")
     highest = summary.get("highest_risk_score", 0)
     decision = payload.get("decision", "unknown")
@@ -53,6 +55,8 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
         f"- 생성 시각: `{generated_at}`",
         f"- 데이터 소스: `{input_meta.get('source', 'unknown')}`",
         f"- 판정: `{decision}`",
+        f"- EDR 상태: `{edr_state.get('level', 'unknown')}`",
+        f"- 상태 사유: {edr_state.get('reason', '-')}",
         f"- 최고 Risk Score: `{highest}`",
         f"- Valid Events: `{summary.get('valid_event_count', 0)}`",
         f"- Alerts: `{summary.get('alert_count', 0)}`",
@@ -144,7 +148,50 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## 6. Deep Inspection / L7 Visibility",
+            "## 6. SIEM Analysis",
+            "",
+            "SIEM 관점에서는 event 원장을 바로 보여주는 것보다, 반복 조회 가능한 query finding으로 정리하는 것이 중요합니다.",
+            "",
+            "| Query | Severity | Count | Logic |",
+            "|---|---|---:|---|",
+        ]
+    )
+    for finding in siem_analysis.get("query_findings", []):
+        lines.append(
+            "| {query} {title} | {severity} | {count} | {logic} |".format(
+                query=finding.get("query_id", "-"),
+                title=finding.get("title", "-"),
+                severity=finding.get("severity", "-"),
+                count=finding.get("count", 0),
+                logic=finding.get("logic", "-").replace("|", "\\|"),
+            )
+        )
+
+    lines.extend(
+        [
+            "",
+            "Topology summary:",
+        ]
+    )
+    topology = siem_analysis.get("topology", {})
+    for edge in topology.get("edges", [])[:12]:
+        lines.append(
+            "- `{source}` -> `{target}` / status `{status}` / events `{events}` / bytes_out `{bytes_out}`".format(
+                source=edge.get("source", "-"),
+                target=edge.get("target", "-"),
+                status=edge.get("status", "-"),
+                events=edge.get("event_count", 0),
+                bytes_out=edge.get("bytes_out", 0),
+            )
+        )
+
+    for note in siem_analysis.get("analyst_notes", []):
+        lines.append(f"- Analyst note: {note}")
+
+    lines.extend(
+        [
+            "",
+            "## 7. Deep Inspection / L7 Visibility",
             "",
             f"- Decryption events: `{summary.get('decryption_event_count', 0)}`",
             f"- L7 events: `{summary.get('l7_event_count', 0)}`",
@@ -170,7 +217,7 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## 7. AI Prediction / Response Plan",
+            "## 8. AI Prediction / Response Plan",
             "",
             f"- Prediction model: `{ai_predictions.get('model', '-')}`",
             f"- High or critical predictions: `{ai_predictions.get('high_or_critical_count', 0)}`",
@@ -205,16 +252,18 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## 8. Pipeline Delivery",
+            "## 9. Pipeline Delivery",
             "",
             f"- Compression: `{pipeline_delivery.get('compression', '-')}`",
             f"- Raw bytes: `{pipeline_delivery.get('raw_bytes', 0)}`",
             f"- Compressed bytes: `{pipeline_delivery.get('compressed_bytes', 0)}`",
             f"- Compression ratio: `{pipeline_delivery.get('compression_ratio', '-')}`",
+            f"- Headers: `{', '.join(sorted((pipeline_delivery.get('headers') or {}).keys()))}`",
+            f"- Auth mode: `{pipeline_delivery.get('auth_mode', '-')}`",
             f"- Ship status: `{pipeline_delivery.get('ship_status', '-')}`",
             f"- Latest bundle: `{pipeline_delivery.get('latest_bundle_path', '-')}`",
             "",
-            "## 9. Data Quality / DLQ",
+            "## 10. Data Quality / DLQ",
             "",
             f"- DLQ event count: `{len(dlq_events)}`",
         ]
@@ -225,7 +274,7 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## 10. Recommended Next Actions",
+            "## 11. Recommended Next Actions",
             "",
             "- critical 또는 suspicious Endpoint의 process/network event를 우선 검토합니다.",
             "- R004 beaconing 후보는 정상 update/telemetry traffic인지 allowlist와 대조합니다.",
@@ -233,7 +282,7 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
             "- DLQ event가 있으면 schema producer 또는 collector mapping을 수정합니다.",
             "- 현재 PoC는 payload를 수집하지 않으므로 privacy-safe metadata 기준의 근거만 제시합니다.",
             "",
-            "## 11. Limitations",
+            "## 12. Limitations",
             "",
         ]
     )

@@ -2,7 +2,7 @@ window.SIEM_RESULT = {
   "status": "success",
   "poc_name": "security_edr_agent_parser",
   "project": "lightweight_edr_siem",
-  "generated_at": "2026-07-06T11:31:38",
+  "generated_at": "2026-07-06T11:59:19",
   "input": {
     "source": "event_file",
     "path": "samples/default_events.json",
@@ -141,9 +141,9 @@ window.SIEM_RESULT = {
   ],
   "events": [
     {
-      "event_id": "benign-endpoint-04-001",
+      "event_id": "benign-choi-haeun-001",
       "event_time": "2026-07-05T09:00:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -152,9 +152,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-002",
+      "event_id": "benign-choi-haeun-002",
       "event_time": "2026-07-05T09:01:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -163,9 +163,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-003",
+      "event_id": "benign-choi-haeun-003",
       "event_time": "2026-07-05T09:02:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -174,9 +174,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-004",
+      "event_id": "benign-choi-haeun-004",
       "event_time": "2026-07-05T09:03:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -185,9 +185,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-005",
+      "event_id": "benign-choi-haeun-005",
       "event_time": "2026-07-05T09:04:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -196,9 +196,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-006",
+      "event_id": "benign-choi-haeun-006",
       "event_time": "2026-07-05T09:05:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -207,9 +207,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-007",
+      "event_id": "benign-choi-haeun-007",
       "event_time": "2026-07-05T09:06:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -218,9 +218,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-008",
+      "event_id": "benign-choi-haeun-008",
       "event_time": "2026-07-05T09:07:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -229,9 +229,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-009",
+      "event_id": "benign-choi-haeun-009",
       "event_time": "2026-07-05T09:08:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -240,9 +240,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-010",
+      "event_id": "benign-choi-haeun-010",
       "event_time": "2026-07-05T09:09:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -251,9 +251,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-011",
+      "event_id": "benign-choi-haeun-011",
       "event_time": "2026-07-05T09:10:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -262,9 +262,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-012",
+      "event_id": "benign-choi-haeun-012",
       "event_time": "2026-07-05T09:11:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -273,9 +273,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-013",
+      "event_id": "benign-choi-haeun-013",
       "event_time": "2026-07-05T09:12:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -284,9 +284,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-014",
+      "event_id": "benign-choi-haeun-014",
       "event_time": "2026-07-05T09:13:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -295,9 +295,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-015",
+      "event_id": "benign-choi-haeun-015",
       "event_time": "2026-07-05T09:14:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -306,9 +306,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-016",
+      "event_id": "benign-choi-haeun-016",
       "event_time": "2026-07-05T09:15:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -317,9 +317,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-017",
+      "event_id": "benign-choi-haeun-017",
       "event_time": "2026-07-05T09:16:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -328,9 +328,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-018",
+      "event_id": "benign-choi-haeun-018",
       "event_time": "2026-07-05T09:17:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -339,9 +339,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-019",
+      "event_id": "benign-choi-haeun-019",
       "event_time": "2026-07-05T09:18:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -350,9 +350,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-020",
+      "event_id": "benign-choi-haeun-020",
       "event_time": "2026-07-05T09:19:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -361,9 +361,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-021",
+      "event_id": "benign-choi-haeun-021",
       "event_time": "2026-07-05T09:20:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -372,9 +372,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-022",
+      "event_id": "benign-choi-haeun-022",
       "event_time": "2026-07-05T09:21:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -383,9 +383,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-023",
+      "event_id": "benign-choi-haeun-023",
       "event_time": "2026-07-05T09:22:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -394,9 +394,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-024",
+      "event_id": "benign-choi-haeun-024",
       "event_time": "2026-07-05T09:23:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -405,9 +405,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-025",
+      "event_id": "benign-choi-haeun-025",
       "event_time": "2026-07-05T09:24:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -416,9 +416,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-026",
+      "event_id": "benign-choi-haeun-026",
       "event_time": "2026-07-05T09:25:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -427,9 +427,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-027",
+      "event_id": "benign-choi-haeun-027",
       "event_time": "2026-07-05T09:26:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -438,9 +438,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-028",
+      "event_id": "benign-choi-haeun-028",
       "event_time": "2026-07-05T09:27:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -449,9 +449,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-029",
+      "event_id": "benign-choi-haeun-029",
       "event_time": "2026-07-05T09:28:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -460,9 +460,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-030",
+      "event_id": "benign-choi-haeun-030",
       "event_time": "2026-07-05T09:29:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -471,9 +471,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-031",
+      "event_id": "benign-choi-haeun-031",
       "event_time": "2026-07-05T09:30:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -482,9 +482,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-032",
+      "event_id": "benign-choi-haeun-032",
       "event_time": "2026-07-05T09:31:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -493,9 +493,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-033",
+      "event_id": "benign-choi-haeun-033",
       "event_time": "2026-07-05T09:32:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -504,9 +504,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-034",
+      "event_id": "benign-choi-haeun-034",
       "event_time": "2026-07-05T09:33:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -515,9 +515,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-035",
+      "event_id": "benign-choi-haeun-035",
       "event_time": "2026-07-05T09:34:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "calendar.company.test",
@@ -526,9 +526,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-036",
+      "event_id": "benign-choi-haeun-036",
       "event_time": "2026-07-05T09:35:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "repo.company.test",
@@ -537,9 +537,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-037",
+      "event_id": "benign-choi-haeun-037",
       "event_time": "2026-07-05T09:36:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "docs.company.test",
@@ -548,9 +548,9 @@ window.SIEM_RESULT = {
       "bytes_out": 22000
     },
     {
-      "event_id": "benign-endpoint-04-038",
+      "event_id": "benign-choi-haeun-038",
       "event_time": "2026-07-05T09:37:00+09:00",
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "mail.company.test",
@@ -561,7 +561,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-001",
       "event_time": "2026-07-05T10:00:00+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "process_start",
       "process_name": "chrome.exe",
       "domain": "",
@@ -572,7 +572,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-002",
       "event_time": "2026-07-05T10:00:10+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "dns_query",
       "process_name": "chrome.exe",
       "domain": "malware-drop.example"
@@ -580,7 +580,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-018",
       "event_time": "2026-07-05T10:00:11+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "decryption_event",
       "process_name": "chrome.exe",
       "domain": "malware-drop.example",
@@ -589,7 +589,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-003",
       "event_time": "2026-07-05T10:00:12+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "network_connection",
       "process_name": "chrome.exe",
       "domain": "malware-drop.example",
@@ -600,7 +600,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-019",
       "event_time": "2026-07-05T10:00:13+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "http_request",
       "process_name": "chrome.exe",
       "domain": "malware-drop.example",
@@ -617,7 +617,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-004",
       "event_time": "2026-07-05T10:00:20+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "file_download",
       "process_name": "chrome.exe",
       "domain": "malware-drop.example"
@@ -625,7 +625,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-005",
       "event_time": "2026-07-05T10:01:10+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "process_start",
       "process_name": "invoice.exe",
       "domain": ""
@@ -633,7 +633,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-006",
       "event_time": "2026-07-05T10:01:40+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "dns_query",
       "process_name": "invoice.exe",
       "domain": "c2.badbeacon.example"
@@ -641,7 +641,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-007",
       "event_time": "2026-07-05T10:02:00+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "network_connection",
       "process_name": "invoice.exe",
       "domain": "c2.badbeacon.example",
@@ -652,7 +652,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-008",
       "event_time": "2026-07-05T10:02:30+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "network_connection",
       "process_name": "invoice.exe",
       "domain": "c2.badbeacon.example",
@@ -663,7 +663,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-009",
       "event_time": "2026-07-05T10:03:00+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "network_connection",
       "process_name": "invoice.exe",
       "domain": "c2.badbeacon.example",
@@ -674,7 +674,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-010",
       "event_time": "2026-07-05T10:03:30+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "network_connection",
       "process_name": "invoice.exe",
       "domain": "c2.badbeacon.example",
@@ -685,7 +685,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-011",
       "event_time": "2026-07-05T10:04:00+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "network_connection",
       "process_name": "invoice.exe",
       "domain": "c2.badbeacon.example",
@@ -696,7 +696,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-012",
       "event_time": "2026-07-05T10:04:08+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "autorun_entry",
       "process_name": "invoice.exe",
       "domain": ""
@@ -704,7 +704,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-020",
       "event_time": "2026-07-05T10:05:00+09:00",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_type": "application_action",
       "process_name": "KakaoTalk",
       "domain": "evil-kakao-link.example",
@@ -719,7 +719,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-016",
       "event_time": "2026-07-05T13:45:00+09:00",
-      "host_id": "endpoint-03",
+      "host_id": "이도윤-IT관리자-PC",
       "event_type": "process_start",
       "process_name": "powershell.exe",
       "domain": ""
@@ -727,7 +727,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-017",
       "event_time": "2026-07-05T13:46:00+09:00",
-      "host_id": "endpoint-03",
+      "host_id": "이도윤-IT관리자-PC",
       "event_type": "network_connection",
       "process_name": "powershell.exe",
       "domain": "admin-tools.example",
@@ -738,7 +738,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-013",
       "event_time": "2026-07-05T22:10:00+09:00",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_type": "vpn_tunnel",
       "process_name": "vpnclient.exe",
       "domain": "",
@@ -748,7 +748,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-014",
       "event_time": "2026-07-05T22:24:00+09:00",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_type": "network_connection",
       "process_name": "syncclient.exe",
       "domain": "rare-storage.example",
@@ -759,7 +759,7 @@ window.SIEM_RESULT = {
     {
       "event_id": "evt-015",
       "event_time": "2026-07-05T22:26:00+09:00",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_type": "flow_summary",
       "process_name": "syncclient.exe",
       "domain": "rare-storage.example",
@@ -772,7 +772,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-002"
       ],
@@ -793,7 +793,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-018"
       ],
@@ -814,7 +814,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-003"
       ],
@@ -835,7 +835,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-019"
       ],
@@ -856,7 +856,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R009",
       "rule_name": "decrypted L7 malicious URL access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-019"
       ],
@@ -880,7 +880,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-004"
       ],
@@ -901,7 +901,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R002",
       "rule_name": "suspicious executable downloaded from browser",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-004"
       ],
@@ -923,7 +923,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R011",
       "rule_name": "known malware hash signature match",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-004"
       ],
@@ -946,7 +946,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R003",
       "rule_name": "unsigned executable started from Downloads",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-005"
       ],
@@ -968,7 +968,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R011",
       "rule_name": "known malware hash signature match",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-005"
       ],
@@ -991,7 +991,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-006"
       ],
@@ -1012,7 +1012,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-007"
       ],
@@ -1033,7 +1033,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-008"
       ],
@@ -1054,7 +1054,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-009"
       ],
@@ -1075,7 +1075,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-010"
       ],
@@ -1096,7 +1096,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-011"
       ],
@@ -1117,7 +1117,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R005",
       "rule_name": "large outbound transfer",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-011"
       ],
@@ -1139,7 +1139,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-020"
       ],
@@ -1160,7 +1160,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R010",
       "rule_name": "risky application action with malicious URL",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-020"
       ],
@@ -1184,7 +1184,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R011",
       "rule_name": "known malware hash signature match",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-020"
       ],
@@ -1207,7 +1207,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R007",
       "rule_name": "shell process creates network connection",
-      "host_id": "endpoint-03",
+      "host_id": "이도윤-IT관리자-PC",
       "event_ids": [
         "evt-017"
       ],
@@ -1230,7 +1230,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R001",
       "rule_name": "known malicious domain access",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_ids": [
         "evt-014"
       ],
@@ -1251,7 +1251,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R005",
       "rule_name": "large outbound transfer",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_ids": [
         "evt-014"
       ],
@@ -1273,7 +1273,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R006",
       "rule_name": "rare ASN connection outside work hours",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_ids": [
         "evt-014"
       ],
@@ -1295,7 +1295,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R008",
       "rule_name": "VPN tunnel plus abnormal transfer",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_ids": [
         "evt-014"
       ],
@@ -1317,7 +1317,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R005",
       "rule_name": "large outbound transfer",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_ids": [
         "evt-015"
       ],
@@ -1339,7 +1339,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R006",
       "rule_name": "rare ASN connection outside work hours",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_ids": [
         "evt-015"
       ],
@@ -1361,7 +1361,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R008",
       "rule_name": "VPN tunnel plus abnormal transfer",
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "event_ids": [
         "evt-015"
       ],
@@ -1383,7 +1383,7 @@ window.SIEM_RESULT = {
     {
       "rule_id": "R004",
       "rule_name": "periodic external connection",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "event_ids": [
         "evt-007",
         "evt-008",
@@ -1412,7 +1412,7 @@ window.SIEM_RESULT = {
   "incidents": [
     {
       "incident_id": "incident-001",
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "risk_score": 100,
       "severity": "critical",
       "primary_category": "suspicious_download_to_c2_sequence",
@@ -1476,7 +1476,7 @@ window.SIEM_RESULT = {
   ],
   "endpoint_risk": [
     {
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "risk_score": 100,
       "severity": "critical",
       "alert_count": 21,
@@ -1490,7 +1490,7 @@ window.SIEM_RESULT = {
       "last_event_time": "2026-07-05T10:05:00+09:00"
     },
     {
-      "host_id": "endpoint-02",
+      "host_id": "박서연-영업팀-VPN",
       "risk_score": 100,
       "severity": "critical",
       "alert_count": 7,
@@ -1504,7 +1504,7 @@ window.SIEM_RESULT = {
       "last_event_time": "2026-07-05T22:26:00+09:00"
     },
     {
-      "host_id": "endpoint-03",
+      "host_id": "이도윤-IT관리자-PC",
       "risk_score": 26,
       "severity": "info",
       "alert_count": 1,
@@ -1515,7 +1515,7 @@ window.SIEM_RESULT = {
       "last_event_time": "2026-07-05T13:46:00+09:00"
     },
     {
-      "host_id": "endpoint-04",
+      "host_id": "최하은-개발팀-Workstation",
       "risk_score": 0,
       "severity": "info",
       "alert_count": 0,
@@ -1588,7 +1588,7 @@ window.SIEM_RESULT = {
   ],
   "process_trees": [
     {
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "parent_process": "explorer.exe",
       "process_name": "chrome.exe",
       "process_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
@@ -1597,7 +1597,7 @@ window.SIEM_RESULT = {
       "event_time": "2026-07-05T10:00:00+09:00"
     },
     {
-      "host_id": "endpoint-01",
+      "host_id": "김민준-재무팀-Laptop",
       "parent_process": "chrome.exe",
       "process_name": "invoice.exe",
       "process_path": "C:\\Users\\analyst\\Downloads\\invoice.exe",
@@ -1606,7 +1606,7 @@ window.SIEM_RESULT = {
       "event_time": "2026-07-05T10:01:10+09:00"
     },
     {
-      "host_id": "endpoint-03",
+      "host_id": "이도윤-IT관리자-PC",
       "parent_process": "explorer.exe",
       "process_name": "powershell.exe",
       "process_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
@@ -1626,7 +1626,7 @@ window.SIEM_RESULT = {
       "sanitized_event": {
         "event_id": "evt-invalid-001",
         "event_time": "2026-07-05T11:00:00+09:00",
-        "host_id": "endpoint-05",
+        "host_id": "정우진-미등록-PC",
         "event_type": "network_connection",
         "source": "agent",
         "payload_version": "v1",
@@ -1648,7 +1648,7 @@ window.SIEM_RESULT = {
         "event_id": "evt-invalid-002",
         "event_time": "not-a-date",
         "received_time": "2026-07-05T11:05:03+09:00",
-        "host_id": "endpoint-05",
+        "host_id": "정우진-미등록-PC",
         "event_type": "unknown_event_type",
         "source": "agent",
         "payload_version": "v1"
@@ -1755,12 +1755,12 @@ window.SIEM_RESULT = {
         "action_id": "response-001",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-001",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: malware-drop.example",
           "source event type: dns_query"
@@ -1770,12 +1770,12 @@ window.SIEM_RESULT = {
         "action_id": "response-002",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-002",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: malware-drop.example",
           "source event type: decryption_event"
@@ -1785,12 +1785,12 @@ window.SIEM_RESULT = {
         "action_id": "response-003",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-003",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: malware-drop.example",
           "source event type: network_connection"
@@ -1800,12 +1800,12 @@ window.SIEM_RESULT = {
         "action_id": "response-004",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-004",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: malware-drop.example",
           "source event type: http_request"
@@ -1815,12 +1815,12 @@ window.SIEM_RESULT = {
         "action_id": "response-005",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R009",
         "alert_id": "alert-005",
         "action_type": "block_url",
         "description": "Block malicious or phishing URL at proxy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "url=https://malware-drop.example/payload/invoice.exe",
           "domain=malware-drop.example",
@@ -1831,12 +1831,12 @@ window.SIEM_RESULT = {
         "action_id": "response-006",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-006",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: malware-drop.example",
           "source event type: file_download"
@@ -1846,12 +1846,12 @@ window.SIEM_RESULT = {
         "action_id": "response-007",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R002",
         "alert_id": "alert-007",
         "action_type": "quarantine_download",
         "description": "Quarantine executable downloaded from suspicious source.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "downloaded file has executable extension",
           "source_domain=malware-drop.example",
@@ -1862,12 +1862,12 @@ window.SIEM_RESULT = {
         "action_id": "response-008",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R011",
         "alert_id": "alert-008",
         "action_type": "quarantine_hash",
         "description": "Quarantine known malware hash.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "hash_sha256=badbeef0000000000000000000000000000000000000000000000000000000001",
           "event_type=file_download",
@@ -1878,12 +1878,12 @@ window.SIEM_RESULT = {
         "action_id": "response-009",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R003",
         "alert_id": "alert-009",
         "action_type": "kill_and_quarantine_process",
         "description": "Stop unsigned executable and quarantine file.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "process is unsigned",
           "process path is under Downloads",
@@ -1894,12 +1894,12 @@ window.SIEM_RESULT = {
         "action_id": "response-010",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R011",
         "alert_id": "alert-010",
         "action_type": "quarantine_hash",
         "description": "Quarantine known malware hash.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "hash_sha256=badbeef0000000000000000000000000000000000000000000000000000000001",
           "event_type=process_start",
@@ -1910,12 +1910,12 @@ window.SIEM_RESULT = {
         "action_id": "response-011",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-011",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: c2.badbeacon.example",
           "source event type: dns_query"
@@ -1925,12 +1925,12 @@ window.SIEM_RESULT = {
         "action_id": "response-012",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-012",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: c2.badbeacon.example",
           "source event type: network_connection"
@@ -1940,12 +1940,12 @@ window.SIEM_RESULT = {
         "action_id": "response-013",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-013",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: c2.badbeacon.example",
           "source event type: network_connection"
@@ -1955,12 +1955,12 @@ window.SIEM_RESULT = {
         "action_id": "response-014",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-014",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: c2.badbeacon.example",
           "source event type: network_connection"
@@ -1970,12 +1970,12 @@ window.SIEM_RESULT = {
         "action_id": "response-015",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-015",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: c2.badbeacon.example",
           "source event type: network_connection"
@@ -1985,12 +1985,12 @@ window.SIEM_RESULT = {
         "action_id": "response-016",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-016",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: c2.badbeacon.example",
           "source event type: network_connection"
@@ -2000,12 +2000,12 @@ window.SIEM_RESULT = {
         "action_id": "response-017",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R005",
         "alert_id": "alert-017",
         "action_type": "rate_limit_or_block_transfer",
         "description": "Review and block abnormal outbound transfer.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "bytes_out=118000000",
           "process_name=invoice.exe",
@@ -2016,12 +2016,12 @@ window.SIEM_RESULT = {
         "action_id": "response-018",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R001",
         "alert_id": "alert-018",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: evil-kakao-link.example",
           "source event type: application_action"
@@ -2031,12 +2031,12 @@ window.SIEM_RESULT = {
         "action_id": "response-019",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R010",
         "alert_id": "alert-019",
         "action_type": "block_app_url_and_notify",
         "description": "Block application-level URL and notify analyst.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "app=KakaoTalk",
           "action=message_send",
@@ -2047,12 +2047,12 @@ window.SIEM_RESULT = {
         "action_id": "response-020",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R011",
         "alert_id": "alert-020",
         "action_type": "quarantine_hash",
         "description": "Quarantine known malware hash.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "hash_sha256=badbeef0000000000000000000000000000000000000000000000000000000001",
           "event_type=application_action",
@@ -2063,12 +2063,12 @@ window.SIEM_RESULT = {
         "action_id": "response-021",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-03",
+        "host_id": "이도윤-IT관리자-PC",
         "rule_id": "R007",
         "alert_id": "alert-021",
         "action_type": "review_shell_network",
         "description": "Inspect shell process command line and destination.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "process_name=powershell.exe",
           "destination=admin-tools.example",
@@ -2079,12 +2079,12 @@ window.SIEM_RESULT = {
         "action_id": "response-022",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-02",
+        "host_id": "박서연-영업팀-VPN",
         "rule_id": "R001",
         "alert_id": "alert-022",
         "action_type": "block_destination",
         "description": "Block known malicious domain/IP at DNS or proxy policy.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination matched signature set: rare-storage.example",
           "source event type: network_connection"
@@ -2094,12 +2094,12 @@ window.SIEM_RESULT = {
         "action_id": "response-023",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-02",
+        "host_id": "박서연-영업팀-VPN",
         "rule_id": "R005",
         "alert_id": "alert-023",
         "action_type": "rate_limit_or_block_transfer",
         "description": "Review and block abnormal outbound transfer.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "bytes_out=92000000",
           "process_name=syncclient.exe",
@@ -2110,12 +2110,12 @@ window.SIEM_RESULT = {
         "action_id": "response-024",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-02",
+        "host_id": "박서연-영업팀-VPN",
         "rule_id": "R006",
         "alert_id": "alert-024",
         "action_type": "review_rare_asn",
         "description": "Review off-hours rare ASN connection.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination_asn=AS64590",
           "event_time is outside 07:00-20:00",
@@ -2126,12 +2126,12 @@ window.SIEM_RESULT = {
         "action_id": "response-025",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-02",
+        "host_id": "박서연-영업팀-VPN",
         "rule_id": "R008",
         "alert_id": "alert-025",
         "action_type": "review_vpn_exfiltration",
         "description": "Review VPN transfer and destination ASN.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "vpn_active=true",
           "bytes_out=92000000",
@@ -2142,12 +2142,12 @@ window.SIEM_RESULT = {
         "action_id": "response-026",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-02",
+        "host_id": "박서연-영업팀-VPN",
         "rule_id": "R005",
         "alert_id": "alert-026",
         "action_type": "rate_limit_or_block_transfer",
         "description": "Review and block abnormal outbound transfer.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "bytes_out=74000000",
           "process_name=syncclient.exe",
@@ -2158,12 +2158,12 @@ window.SIEM_RESULT = {
         "action_id": "response-027",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-02",
+        "host_id": "박서연-영업팀-VPN",
         "rule_id": "R006",
         "alert_id": "alert-027",
         "action_type": "review_rare_asn",
         "description": "Review off-hours rare ASN connection.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "destination_asn=AS64590",
           "event_time is outside 07:00-20:00",
@@ -2174,12 +2174,12 @@ window.SIEM_RESULT = {
         "action_id": "response-028",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-02",
+        "host_id": "박서연-영업팀-VPN",
         "rule_id": "R008",
         "alert_id": "alert-028",
         "action_type": "review_vpn_exfiltration",
         "description": "Review VPN transfer and destination ASN.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "vpn_active=true",
           "bytes_out=74000000",
@@ -2190,12 +2190,12 @@ window.SIEM_RESULT = {
         "action_id": "response-029",
         "mode": "dry-run",
         "status": "planned",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "rule_id": "R004",
         "alert_id": "alert-029",
         "action_type": "contain_host_for_c2_review",
         "description": "Open C2 beaconing review and consider host containment.",
-        "created_at": "2026-07-06T11:31:38",
+        "created_at": "2026-07-06T11:59:19",
         "evidence": [
           "process_name=invoice.exe",
           "destination=c2.badbeacon.example",
@@ -2212,7 +2212,7 @@ window.SIEM_RESULT = {
     "predictions": [
       {
         "prediction_id": "prediction-001",
-        "host_id": "endpoint-01",
+        "host_id": "김민준-재무팀-Laptop",
         "model": "poc_feature_risk_model_v1",
         "prediction": "critical",
         "score": 100,
@@ -2235,11 +2235,11 @@ window.SIEM_RESULT = {
           "has_l7_malicious_url": true
         },
         "reason": "Beaconing and outbound transfer appeared together.",
-        "created_at": "2026-07-06T11:31:38"
+        "created_at": "2026-07-06T11:59:19"
       },
       {
         "prediction_id": "prediction-002",
-        "host_id": "endpoint-02",
+        "host_id": "박서연-영업팀-VPN",
         "model": "poc_feature_risk_model_v1",
         "prediction": "critical",
         "score": 87,
@@ -2258,11 +2258,11 @@ window.SIEM_RESULT = {
           "has_l7_malicious_url": false
         },
         "reason": "Multiple weak signals were combined into a host-level risk estimate.",
-        "created_at": "2026-07-06T11:31:38"
+        "created_at": "2026-07-06T11:59:19"
       },
       {
         "prediction_id": "prediction-003",
-        "host_id": "endpoint-03",
+        "host_id": "이도윤-IT관리자-PC",
         "model": "poc_feature_risk_model_v1",
         "prediction": "low",
         "score": 19,
@@ -2278,21 +2278,268 @@ window.SIEM_RESULT = {
           "has_l7_malicious_url": false
         },
         "reason": "Multiple weak signals were combined into a host-level risk estimate.",
-        "created_at": "2026-07-06T11:31:38"
+        "created_at": "2026-07-06T11:59:19"
       }
     ],
     "note": "This is a deterministic PoC risk model, not a trained production ML model."
   },
+  "telemetry_context": {
+    "customer_id": "demo-customer",
+    "device_id": "multi-endpoint-sample",
+    "agent_version": "0.1.0",
+    "transport": "local-file",
+    "auth_mode": "none"
+  },
+  "siem_analysis": {
+    "edr_state": {
+      "level": "RED",
+      "reason": "critical endpoint risk 또는 incident가 존재합니다.",
+      "highest_risk_score": 100,
+      "critical_alert_count": 0,
+      "warning_alert_count": 0,
+      "dlq_event_count": 2
+    },
+    "time_window": {
+      "first_event_at": "2026-07-05T09:00:00+09:00",
+      "last_event_at": "2026-07-05T22:26:00+09:00",
+      "duration_minutes": 806
+    },
+    "event_type_distribution": [
+      {
+        "name": "network_connection",
+        "count": 46
+      },
+      {
+        "name": "process_start",
+        "count": 3
+      },
+      {
+        "name": "dns_query",
+        "count": 2
+      },
+      {
+        "name": "decryption_event",
+        "count": 1
+      },
+      {
+        "name": "http_request",
+        "count": 1
+      },
+      {
+        "name": "file_download",
+        "count": 1
+      },
+      {
+        "name": "autorun_entry",
+        "count": 1
+      },
+      {
+        "name": "application_action",
+        "count": 1
+      },
+      {
+        "name": "vpn_tunnel",
+        "count": 1
+      },
+      {
+        "name": "flow_summary",
+        "count": 1
+      }
+    ],
+    "source_distribution": [
+      {
+        "name": "unknown",
+        "count": 58
+      }
+    ],
+    "query_findings": [
+      {
+        "query_id": "Q001",
+        "title": "악성 destination 접속",
+        "severity": "critical",
+        "count": 13,
+        "logic": "DNS, network, L7 event의 domain/IP를 threat signature와 비교합니다."
+      },
+      {
+        "query_id": "Q002",
+        "title": "다운로드 -> 실행 -> C2 -> 유출 chain",
+        "severity": "critical",
+        "count": 1,
+        "logic": "file_download, process_start, beaconing, large outbound transfer를 host별 시간순으로 연결합니다."
+      },
+      {
+        "query_id": "Q003",
+        "title": "대용량 outbound transfer",
+        "severity": "warning",
+        "count": 5,
+        "logic": "bytes_out, VPN 상태, destination ASN을 함께 확인합니다."
+      },
+      {
+        "query_id": "Q004",
+        "title": "L7 decrypted metadata policy hit",
+        "severity": "suspicious",
+        "count": 2,
+        "logic": "복호화된 URL, app action, URL category를 policy/signature와 비교합니다."
+      },
+      {
+        "query_id": "Q005",
+        "title": "수집 품질 DLQ",
+        "severity": "warning",
+        "count": 2,
+        "logic": "필수 field 누락, 지원하지 않는 event_type, datetime 오류를 추적합니다."
+      }
+    ],
+    "topology": {
+      "nodes": [
+        {
+          "id": "최하은-개발팀-Workstation",
+          "label": "최하은-개발팀-Workstation",
+          "group": "computer",
+          "status": "not_detected",
+          "risk_score": 0
+        },
+        {
+          "id": "우리 내부 서비스",
+          "label": "우리 내부 서비스",
+          "group": "inside",
+          "status": "not_detected",
+          "risk_score": 0
+        },
+        {
+          "id": "김민준-재무팀-Laptop",
+          "label": "김민준-재무팀-Laptop",
+          "group": "computer",
+          "status": "alert",
+          "risk_score": 100
+        },
+        {
+          "id": "malware-drop.example",
+          "label": "malware-drop.example",
+          "group": "outside",
+          "status": "alert",
+          "risk_score": 0
+        },
+        {
+          "id": "c2.badbeacon.example",
+          "label": "c2.badbeacon.example",
+          "group": "outside",
+          "status": "alert",
+          "risk_score": 0
+        },
+        {
+          "id": "evil-kakao-link.example",
+          "label": "evil-kakao-link.example",
+          "group": "outside",
+          "status": "alert",
+          "risk_score": 0
+        },
+        {
+          "id": "이도윤-IT관리자-PC",
+          "label": "이도윤-IT관리자-PC",
+          "group": "computer",
+          "status": "not_detected",
+          "risk_score": 26
+        },
+        {
+          "id": "admin-tools.example",
+          "label": "admin-tools.example",
+          "group": "outside",
+          "status": "alert",
+          "risk_score": 0
+        },
+        {
+          "id": "박서연-영업팀-VPN",
+          "label": "박서연-영업팀-VPN",
+          "group": "computer",
+          "status": "alert",
+          "risk_score": 100
+        },
+        {
+          "id": "rare-storage.example",
+          "label": "rare-storage.example",
+          "group": "outside",
+          "status": "alert",
+          "risk_score": 0
+        }
+      ],
+      "edges": [
+        {
+          "source": "김민준-재무팀-Laptop",
+          "target": "c2.badbeacon.example",
+          "event_count": 6,
+          "bytes_out": 118013400,
+          "status": "alert"
+        },
+        {
+          "source": "김민준-재무팀-Laptop",
+          "target": "evil-kakao-link.example",
+          "event_count": 1,
+          "bytes_out": 0,
+          "status": "alert"
+        },
+        {
+          "source": "김민준-재무팀-Laptop",
+          "target": "malware-drop.example",
+          "event_count": 5,
+          "bytes_out": 42000,
+          "status": "alert"
+        },
+        {
+          "source": "박서연-영업팀-VPN",
+          "target": "rare-storage.example",
+          "event_count": 2,
+          "bytes_out": 166000000,
+          "status": "alert"
+        },
+        {
+          "source": "박서연-영업팀-VPN",
+          "target": "우리 내부 서비스",
+          "event_count": 1,
+          "bytes_out": 0,
+          "status": "not_detected"
+        },
+        {
+          "source": "이도윤-IT관리자-PC",
+          "target": "admin-tools.example",
+          "event_count": 1,
+          "bytes_out": 56000,
+          "status": "alert"
+        },
+        {
+          "source": "최하은-개발팀-Workstation",
+          "target": "우리 내부 서비스",
+          "event_count": 38,
+          "bytes_out": 836000,
+          "status": "not_detected"
+        }
+      ]
+    },
+    "analyst_notes": [
+      "다운로드, 실행, C2, 유출로 이어지는 attack chain 후보가 있습니다.",
+      "L7 metadata에서 URL 또는 application action 기반 policy hit가 발생했습니다.",
+      "DLQ event가 있어 agent producer 또는 parser schema mapping 검토가 필요합니다."
+    ]
+  },
   "pipeline_delivery": {
     "compression": "gzip",
-    "raw_bytes": 30819,
-    "compressed_bytes": 3543,
-    "compression_ratio": 0.115,
-    "sha256": "2f038cae466ebeb9cc82e0c928da310150efa4300576bf72e137caacad770253",
+    "raw_bytes": 36350,
+    "compressed_bytes": 4943,
+    "compression_ratio": 0.136,
+    "sha256": "1a3cd15011b9419cc58682340760fd0fb8da8dda977b2c8e6de78f48c9bb855d",
     "latest_bundle_path": "outputs/pipeline/latest/telemetry_bundle.json.gz",
-    "run_bundle_path": "outputs/pipeline/runs/20260706_113138/telemetry_bundle.json.gz",
+    "run_bundle_path": "outputs/pipeline/runs/20260706_115919/telemetry_bundle.json.gz",
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Encoding": "gzip",
+      "X-EDR-PoC": "security_edr_agent_parser",
+      "X-EDR-Agent-Version": "0.1.0",
+      "X-EDR-Customer-Id": "demo-customer",
+      "X-EDR-Device-Id": "multi-endpoint-sample",
+      "X-EDR-Envelope-Version": "2026-07-telemetry-v1"
+    },
     "ship_url": "",
-    "ship_status": "not_requested"
+    "ship_status": "not_requested",
+    "auth_mode": "none"
   },
   "dashboard": {
     "index_path": "dashboard/index.html",
@@ -2302,8 +2549,8 @@ window.SIEM_RESULT = {
   "report": {
     "latest_markdown_path": "outputs/reports/latest/security_report.md",
     "latest_html_path": "outputs/reports/latest/security_report.html",
-    "run_markdown_path": "outputs/reports/runs/20260706_113138/security_report.md",
-    "run_html_path": "outputs/reports/runs/20260706_113138/security_report.html",
+    "run_markdown_path": "outputs/reports/runs/20260706_115919/security_report.md",
+    "run_html_path": "outputs/reports/runs/20260706_115919/security_report.html",
     "open_note": "HTML 보고서는 outputs/reports/latest/security_report.html에서 볼 수 있습니다."
   }
 };

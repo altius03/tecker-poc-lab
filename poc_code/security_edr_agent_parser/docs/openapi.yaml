@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: EDR Agent Parser Collector API
+  version: 0.1.0
+  description: >
+    PoC collector API contract. Runtime server implementation is not included yet;
+    this file documents the ingestion contract for Swagger/OpenAPI review.
+servers:
+  - url: https://collector.example.local
+paths:
+  /v1/telemetry:ingest:
+    post:
+      summary: Ingest gzipped endpoint telemetry bundle
+      operationId: ingestTelemetry
+      parameters:
+        - name: X-EDR-Agent-Version
+          in: header
+          required: true
+          schema:
+            type: string
+          example: 0.1.0
+        - name: X-EDR-Customer-Id
+          in: header
+          required: true
+          schema:
+            type: string
+          example: acme-demo
+        - name: X-EDR-Device-Id
+          in: header
+          required: true
+          schema:
+            type: string
+          example: kim-minjun-finance-laptop
+        - name: X-EDR-Envelope-Version
+          in: header
+          required: true
+          schema:
+            type: string
+          example: 2026-07-telemetry-v1
+        - name: Content-Encoding
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [gzip]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TelemetryBundle"
+      responses:
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IngestResponse"
+        "400":
+          description: Invalid schema
+        "401":
+          description: Invalid token or client certificate
+        "403":
+          description: Customer/device is not allowed
+  /v1/agents/{deviceId}/token:refresh:
+    post:
+      summary: Refresh short-lived access token for a device
+      operationId: refreshDeviceToken
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Refreshed token
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [access_token, expires_in]
+                properties:
+                  access_token:
+                    type: string
+                  expires_in:
+                    type: integer
+                    example: 900
+  /v1/health:
+    get:
+      summary: Collector health check
+      operationId: getHealth
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+components:
+  schemas:
+    TelemetryBundle:
+      type: object
+      required: [status, generated_at, summary, alerts, incidents, endpoint_risk]
+      properties:
+        status:
+          type: string
+          example: success
+        generated_at:
+          type: string
+          format: date-time
+        telemetry_context:
+          $ref: "#/components/schemas/TelemetryContext"
+        summary:
+          type: object
+          additionalProperties: true
+        alerts:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        incidents:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        endpoint_risk:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        siem_analysis:
+          type: object
+          additionalProperties: true
+    TelemetryContext:
+      type: object
+      required: [customer_id, device_id, agent_version]
+      properties:
+        customer_id:
+          type: string
+        device_id:
+          type: string
+        agent_version:
+          type: string
+        transport:
+          type: string
+          enum: [local-file, gzip-http, grpc-mtls]
+        auth_mode:
+          type: string
+          enum: [none, bearer-token, mtls]
+    IngestResponse:
+      type: object
+      required: [accepted, bundle_id]
+      properties:
+        accepted:
+          type: boolean
+        bundle_id:
+          type: string
+        received_at:
+          type: string
+          format: date-time

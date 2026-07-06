@@ -22,6 +22,7 @@ sample / local endpoint / PCAP / L7 metadata
 -> privacy masking
 -> detection rules
 -> MITRE ATT&CK mapping
+-> SIEM query finding / topology
 -> AI-style risk prediction
 -> response plan
 -> dashboard + report + gzip pipeline bundle
@@ -45,9 +46,11 @@ flowchart LR
   N --> P["Privacy sanitizer"]
   P --> R["Rule detection R001-R013"]
   R --> M["MITRE ATT&CK mapping"]
+  M --> S["SIEM query findings"]
   M --> X["Response plan"]
   M --> AI["AI-style host risk"]
-  X --> O["outputs/latest/result.json"]
+  S --> O["analysis artifacts"]
+  X --> O
   AI --> O
   O --> DASH["dashboard/index.html"]
   O --> REP["security_report.html / .md"]
@@ -66,7 +69,6 @@ python -m src.run
 실행하면 최신 결과가 자동으로 생성됩니다.
 
 ```text
-outputs/latest/result.json
 dashboard/data/latest-result.js
 outputs/reports/latest/security_report.html
 outputs/reports/latest/security_report.md
@@ -209,13 +211,18 @@ scripts/uninstall_mac_agent.sh
 
 | 영역 | 내용 |
 |------|------|
-| Overview | alert 수, incident 수, endpoint risk, highest risk score |
+| 컴퓨터 흐름 | 내 컴퓨터 -> 우리 내부 -> 외부 destination topology |
+| SIEM Analysis | 반복 가능한 query finding과 분석 count |
+| EDR 상태 | `RED`, `AMBER`, `YELLOW`, `GREEN`으로 실제 위험 상태 표시 |
+| 시간 범위 | Grafana식 `Last 10 minutes`, `Last 1 hour`, `Last 24 hours` |
+| Severity 전환 | Critical/Warning/Suspicious/Info 즉시 필터 |
+| Alert 확인 | 선택한 alert가 우상단 inspector에 표시 |
 | Incident Workbench | Falcon / Cortex 계열 콘솔 느낌의 incident 분석 |
 | MITRE ATT&CK | tactic별 탐지 분포 |
 | Timeline | 시간순 위험 이벤트 |
 | Endpoint Risk | host별 risk score |
 | Response Playbook | dry-run response action |
-| Report Center | 최신 HTML/Markdown report 링크 |
+| Report Center | report popup, Markdown, PDF 저장 |
 | Data Quality | schema validation, DLQ, privacy masking 결과 |
 
 ---
@@ -238,9 +245,10 @@ outputs/reports/latest/security_report.md
 | Incident Summary | 연결된 공격 흐름 |
 | Alert Evidence | 탐지 근거 |
 | MITRE ATT&CK Mapping | 공격 전술/기법 매핑 |
+| SIEM Analysis | 반복 가능한 query finding과 topology summary |
 | Deep Inspection / L7 Visibility | L7 metadata 기반 분석 |
 | AI Prediction / Response Plan | 예측 위험도와 대응 계획 |
-| Pipeline Delivery | gzip telemetry bundle 생성 결과 |
+| Pipeline Delivery | gzip telemetry bundle, customer/device/version header, mTLS mode |
 | Data Quality / DLQ | 유효하지 않은 event 처리 |
 | Recommended Next Actions | 다음 조치 |
 | Limitations | 현재 한계 |
@@ -285,6 +293,7 @@ security_edr_agent_parser/
 │   ├── mac_agent.py        # macOS target agent PoC
 │   ├── detection_engine.py # detection rules + MITRE mapping
 │   ├── ai_predictor.py     # AI-style host risk scoring
+│   ├── siem_analyzer.py    # SIEM query finding + topology
 │   ├── response_engine.py  # dry-run response plan
 │   ├── pipeline.py         # gzip bundle / optional ship-url
 │   ├── report_builder.py   # Markdown / HTML report
@@ -301,9 +310,16 @@ security_edr_agent_parser/
 │   └── threat_signatures.json
 ├── scripts/
 │   ├── validate_poc.py
+│   ├── create_local_cert.py
 │   ├── https_inspection_proxy.py
 │   ├── install_mac_agent.sh
 │   └── uninstall_mac_agent.sh
+├── docs/
+│   ├── agent-collector.md
+│   ├── reporting.md
+│   ├── openapi.yaml
+│   ├── telemetry.proto
+│   └── cert-mtls-token-refresh.md
 ├── tests/
 └── outputs/
 ```
@@ -320,8 +336,23 @@ security_edr_agent_parser/
 | L7 sample 포함 | `python -m src.run --l7-file samples\decrypted_l7_records.json` |
 | PCAP 포함 | `python -m src.run --pcap-file samples\some_capture.pcap` |
 | pipeline 전송 테스트 | `python -m src.run --ship-url http://127.0.0.1:9000/ingest` |
+| 고객사/기기 header 포함 전송 | `python -m src.run --ship-url https://collector.example.local/v1/telemetry:ingest --customer-id acme-demo --device-id kim-minjun-finance-laptop --agent-version 0.1.0` |
+| Windows local cert 생성 | `.\scripts\create_local_cert.ps1 -CustomerId acme-demo -DeviceId kim-minjun-finance-laptop` |
+| OpenSSL PEM cert 생성 | `python scripts\create_local_cert.py --customer-id acme-demo --device-id kim-minjun-finance-laptop` |
 | 전체 검증 | `python scripts\validate_poc.py` |
 | unit test | `python -m unittest discover -s tests` |
+
+---
+
+## 문서
+
+| 문서 | 내용 |
+|------|------|
+| `docs/agent-collector.md` | Win32_Process, Get-NetTCPConnection, DNS cache 수집 설명 |
+| `docs/reporting.md` | report 생성, popup, PDF 저장 방식 |
+| `docs/openapi.yaml` | Swagger/OpenAPI ingestion 명세 |
+| `docs/telemetry.proto` | gRPC 전환용 protobuf 초안 |
+| `docs/cert-mtls-token-refresh.md` | local cert, mTLS, token refresh 설계 |
 
 ---
 

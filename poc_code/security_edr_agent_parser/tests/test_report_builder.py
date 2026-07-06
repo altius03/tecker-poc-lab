@@ -24,7 +24,7 @@ SAMPLE_RESULT = {
     },
     "endpoint_risk": [
         {
-            "host_id": "endpoint-01",
+            "host_id": "김민준-재무팀-Laptop",
             "risk_score": 91,
             "severity": "critical",
             "alert_count": 2,
@@ -35,7 +35,7 @@ SAMPLE_RESULT = {
     "alerts": [
         {
             "rule_id": "R004",
-            "host_id": "endpoint-01",
+            "host_id": "김민준-재무팀-Laptop",
             "severity": "suspicious",
             "risk_score": 36,
             "evidence": ["regular interval connection"],
@@ -44,7 +44,7 @@ SAMPLE_RESULT = {
     "incidents": [
         {
             "incident_id": "incident-001",
-            "host_id": "endpoint-01",
+            "host_id": "김민준-재무팀-Laptop",
             "risk_score": 91,
             "severity": "critical",
             "primary_category": "suspicious_download_to_c2_sequence",
@@ -67,7 +67,7 @@ class ReportBuilderTests(unittest.TestCase):
         self.assertIn("# Security EDR Agent Parser 분석 보고서", markdown)
         self.assertIn("## 4. Alert Evidence", markdown)
         self.assertIn("<html", html)
-        self.assertIn("<td>endpoint-01</td>", html)
+        self.assertIn("<td>김민준-재무팀-Laptop</td>", html)
 
     def test_write_report_artifacts_creates_latest_and_run_outputs(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

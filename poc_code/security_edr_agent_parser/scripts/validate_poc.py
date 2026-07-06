@@ -10,7 +10,7 @@ from typing import Any
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-LATEST_RESULT_PATH = BASE_DIR / "outputs" / "latest" / "result.json"
+LATEST_RESULT_PATH = BASE_DIR / "outputs" / "latest" / "analysis_payload.json"
 VERIFICATION_DIR = BASE_DIR / "outputs" / "verification"
 DASHBOARD_INDEX_PATH = BASE_DIR / "dashboard" / "index.html"
 DASHBOARD_DATA_PATH = BASE_DIR / "dashboard" / "data" / "latest-result.js"
@@ -103,6 +103,13 @@ def _check_result_contract(result: dict[str, Any]) -> dict[str, Any]:
         failures.append("response actions were not generated")
     if summary.get("ai_prediction_count", 0) < 1:
         failures.append("AI predictions were not generated")
+    siem_analysis = result.get("siem_analysis", {})
+    if not siem_analysis.get("query_findings"):
+        failures.append("SIEM query findings were not generated")
+    if not siem_analysis.get("topology", {}).get("nodes"):
+        failures.append("SIEM topology nodes were not generated")
+    if siem_analysis.get("edr_state", {}).get("level") not in {"RED", "AMBER", "YELLOW", "GREEN"}:
+        failures.append("EDR state level is missing")
 
     rules = {alert.get("rule_id") for alert in result.get("alerts", [])}
     for rule_id in {"R001", "R002", "R003", "R004", "R005", "R006", "R007", "R008", "R009", "R010", "R011"}:
@@ -130,7 +137,7 @@ def _check_result_contract(result: dict[str, Any]) -> dict[str, Any]:
     return {
         "name": "result_contract",
         "status": "pass" if not failures else "fail",
-        "details": "result JSON satisfies PoC contract." if not failures else failures,
+        "details": "analysis payload satisfies PoC contract." if not failures else failures,
     }
 
 
@@ -161,7 +168,7 @@ def _check_report_artifacts(result: dict[str, Any]) -> dict[str, Any]:
     elif "<html" not in LATEST_REPORT_HTML_PATH.read_text(encoding="utf-8"):
         failures.append("html report is not valid-looking HTML")
     if not result.get("report"):
-        failures.append("result JSON does not include report paths")
+        failures.append("analysis payload does not include report paths")
 
     return {
         "name": "report_artifacts",
@@ -174,13 +181,17 @@ def _check_pipeline_artifacts(result: dict[str, Any]) -> dict[str, Any]:
     failures: list[str] = []
     delivery = result.get("pipeline_delivery", {})
     if not delivery:
-        failures.append("result JSON does not include pipeline_delivery")
+        failures.append("analysis payload does not include pipeline_delivery")
     if not LATEST_PIPELINE_BUNDLE_PATH.exists():
         failures.append(f"missing gzip pipeline bundle: {LATEST_PIPELINE_BUNDLE_PATH}")
     elif LATEST_PIPELINE_BUNDLE_PATH.stat().st_size <= 0:
         failures.append("gzip pipeline bundle is empty")
     if delivery.get("compression") != "gzip":
         failures.append("pipeline compression is not gzip")
+    headers = delivery.get("headers", {})
+    for header in ("X-EDR-Agent-Version", "X-EDR-Customer-Id", "X-EDR-Device-Id", "X-EDR-Envelope-Version"):
+        if header not in headers:
+            failures.append(f"missing telemetry header: {header}")
 
     return {
         "name": "pipeline_artifacts",
@@ -213,11 +224,14 @@ def _build_report(checks: list[dict[str, Any]], result: dict[str, Any]) -> dict[
             "advanced detection R009-R011 for L7 URL, application action, and malware hash",
             "MITRE ATT&CK attack-chain mapping",
             "PCAP TCP flow analyzer and decrypted L7 proxy-log ingestion",
+            "SIEM query findings and computer-inside-outside topology",
             "dry-run response plan generation",
             "AI-style host risk prediction",
-            "gzip telemetry pipeline bundle",
-            "static SIEM dashboard fed by latest CLI result",
-            "Markdown and HTML report artifacts generated from latest result",
+            "gzip telemetry pipeline bundle with customer/device/version headers",
+            "static SIEM dashboard fed by latest CLI analysis payload",
+            "Markdown and HTML report artifacts generated from latest analysis payload",
+            "Swagger/OpenAPI and gRPC protobuf contract docs",
+            "mTLS local certificate generation helper and token-refresh design docs",
         ],
         "next_user_required": [
             "Run the macOS agent on an actual Mac if packet-capture validation is required.",

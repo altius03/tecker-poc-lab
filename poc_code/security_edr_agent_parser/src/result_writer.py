@@ -19,8 +19,8 @@ from .report_builder import write_report_artifacts
 
 def write_result(payload: dict[str, Any]) -> dict[str, Path]:
     run_dir = _new_run_dir()
-    latest_path = LATEST_OUTPUT_DIR / "result.json"
-    run_path = run_dir / "result.json"
+    latest_path = LATEST_OUTPUT_DIR / "analysis_payload.json"
+    run_path = run_dir / "analysis_payload.json"
     report_run_dir = REPORT_RUNS_DIR / run_dir.name
 
     payload = dict(payload)
