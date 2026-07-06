@@ -142,11 +142,14 @@ flowchart LR
 
   subgraph BACKEND["Backend"]
     COLLECTOR --> VALIDATE["Schema Validation"]
-    VALIDATE --> STORE["Event Store"]
-    STORE --> DETECT["Detection Engine"]
-    STORE --> SIEM["SIEM Query / Correlation"]
+    VALIDATE --> STORE["PostgreSQL<br/>Event Store"]
+    VALIDATE --> OUTBOX["PostgreSQL<br/>Transactional Outbox"]
+    OUTBOX --> BROKER["Redpanda<br/>Kafka-compatible Broker"]
+    BROKER --> DETECT["Detection Worker"]
+    BROKER --> SIEM["SIEM Query / Correlation Worker"]
     DETECT --> INCIDENT["Incident Builder"]
     SIEM --> INCIDENT
+    INCIDENT --> STORE
     INCIDENT --> MITRE["MITRE ATT&CK Mapping"]
   end
 
@@ -252,6 +255,7 @@ Event Store는 telemetry를 저장하는 계층입니다.
 
 기본 저장소는 PostgreSQL로 확정합니다.
 SQLite는 unit test나 Docker가 없는 local fallback에만 사용합니다.
+Kafka/Redpanda는 DB가 아니라 event broker이므로, 조회 가능한 영속 데이터는 PostgreSQL에 둡니다.
 
 초기 저장 단위:
 
@@ -259,6 +263,7 @@ SQLite는 unit test나 Docker가 없는 local fallback에만 사용합니다.
 customers
 devices
 events
+event_outbox
 alerts
 incidents
 reports
@@ -267,7 +272,54 @@ dead_letter_events
 
 ---
 
-### 7.5 Detection Engine
+### 7.5 Event Broker / Queue
+
+이 backend는 event-driven 구조입니다.
+Collector가 모든 분석을 동기 처리하지 않고, event를 저장한 뒤 queue/broker로 넘깁니다.
+
+결정:
+
+| 항목 | 결정 |
+|---|---|
+| Broker | Redpanda |
+| 호환성 | Kafka API compatible |
+| Local 실행 | Docker Compose |
+| Production 확장 | Apache Kafka, AWS MSK, 또는 Kafka-compatible service로 교체 가능 |
+| 유실 방지 | PostgreSQL transactional outbox |
+| 실패 처리 | DLQ topic + PostgreSQL `dead_letter_events` |
+
+기본 event 흐름:
+
+```text
+Collector
+-> PostgreSQL events + event_outbox transaction
+-> Outbox publisher
+-> Redpanda topic
+-> Detection / SIEM / Report / Dashboard projection consumer
+```
+
+기본 topic:
+
+```text
+telemetry.raw.v1
+telemetry.validated.v1
+alerts.created.v1
+incidents.created.v1
+reports.requested.v1
+events.dlq.v1
+```
+
+병목 대비:
+
+- Collector는 인증, validation, 저장까지만 빠르게 처리
+- Redpanda topic partition으로 event 처리량 확장
+- detection/SIEM/report worker는 consumer group으로 수평 확장
+- broker 장애 시 PostgreSQL `event_outbox`에 backlog 보관
+- 실패 event는 DLQ에 넣고 dashboard/report에서 수집 품질로 표시
+
+---
+
+### 7.6 Detection Engine
 
 Detection Engine은 event가 위험한지 판단합니다.
 
@@ -294,7 +346,7 @@ Detection Engine은 event가 위험한지 판단합니다.
 
 ---
 
-### 7.6 SIEM Analysis
+### 7.7 SIEM Analysis
 
 SIEM은 단순 alert 목록이 아니라, 여러 로그를 모아 검색/상관분석하는 영역입니다.
 
@@ -319,7 +371,7 @@ Q005: 수집 품질 DLQ
 
 ---
 
-### 7.7 Dashboard
+### 7.8 Dashboard
 
 Dashboard는 보안 담당자가 보는 화면입니다.
 
@@ -355,7 +407,7 @@ Dashboard는 보안 담당자가 보는 화면입니다.
 
 ---
 
-### 7.8 Report
+### 7.9 Report
 
 Report는 발표/공유용 산출물입니다.
 
@@ -529,6 +581,7 @@ security_edr_agent_parser/
 - event schema 정의
 - protobuf schema 확정
 - OpenAPI는 보조 API 문서로 정리
+- event-driven topic과 outbox schema 확정
 - dashboard 첫 화면 wireframe 확정
 
 ### Phase 2. Agent 수집
@@ -546,12 +599,14 @@ security_edr_agent_parser/
 - DLQ 저장
 - customer/device/version gRPC metadata 처리
 - mTLS client certificate 검증
+- PostgreSQL `events` + `event_outbox` transaction 저장
+- outbox publisher가 Redpanda topic으로 발행
 
 ### Phase 4. Detection + SIEM
 
 - signature DB
-- rule engine
-- event correlation
+- detection consumer
+- SIEM correlation consumer
 - incident 생성
 - MITRE ATT&CK mapping
 - SIEM query finding 생성
@@ -594,6 +649,8 @@ security_edr_agent_parser/
 |---|---|
 | Backend | Python 3.11 collector로 구현. gRPC server가 primary이고, FastAPI/OpenAPI는 health/admin/report/debug 보조 API로만 사용 |
 | DB | PostgreSQL을 기본 저장소로 사용. SQLite는 unit test나 Docker가 없는 local fallback에만 사용 |
+| Broker/Queue | Redpanda를 Kafka-compatible broker로 사용. PostgreSQL transactional outbox로 유실 방지 |
+| Event-driven | Collector 이후 detection, SIEM, report, dashboard projection은 consumer가 비동기로 처리 |
 | Transport | 1차 구현부터 `gRPC + mTLS` 사용. REST ingestion은 기본 경로로 두지 않음 |
 | Certificate | PoC 구현은 PEM file 기준. Windows cert store/PFX는 패키징 단계에서 추가 검토 |
 | Dashboard | React + Vite + TypeScript SPA로 신규 구현. 정적 HTML은 reference artifact로만 유지 |

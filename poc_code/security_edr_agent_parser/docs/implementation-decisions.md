@@ -78,23 +78,75 @@ edr-schema-version: telemetry.v1
 
 ---
 
-## 4. Storage
+## 4. Storage와 Queue
 
-결정: PostgreSQL을 기본 저장소로 사용합니다.
+결정: PostgreSQL은 source of truth DB로 사용하고, Redpanda를 Kafka-compatible event broker로 사용합니다.
+Kafka는 DB가 아니라 event stream/message broker입니다.
 
 | 용도 | 결정 |
 |---|---|
 | 기본 DB | PostgreSQL |
 | Local fallback | SQLite |
-| Queue/DLQ | PostgreSQL table로 시작 |
+| Transactional outbox | PostgreSQL `event_outbox` table |
+| Message broker | Redpanda, Kafka API compatible |
+| DLQ | broker DLQ topic + PostgreSQL `dead_letter_events` table |
 | Object/file artifact | local volume 또는 S3-compatible storage |
 
 SQLite는 unit test나 Docker가 없는 local fallback에만 사용합니다.
-PoC 데모는 Docker Compose의 PostgreSQL을 기준으로 잡습니다.
+PoC 데모는 Docker Compose의 PostgreSQL + Redpanda를 기준으로 잡습니다.
+
+왜 Kafka 자체가 아니라 Redpanda인가:
+
+- Kafka protocol과 client 생태계를 그대로 쓸 수 있음
+- Docker Compose에서 띄우기 쉽고 Zookeeper가 필요 없음
+- 포트폴리오에서는 "Kafka-compatible event streaming" 구조를 보여주기에 충분함
+- 나중에 AWS로 가면 MSK 또는 Apache Kafka로 교체 가능함
 
 ---
 
-## 5. Certificate
+## 5. Event-Driven Pipeline
+
+결정: 전체 backend는 event-driven 구조로 설계합니다.
+
+Collector가 gRPC 요청 안에서 모든 분석을 끝내지 않습니다.
+Collector는 검증 가능한 최소 작업만 수행하고, event를 PostgreSQL과 outbox에 안전하게 기록한 뒤 broker로 넘깁니다.
+Detection, SIEM, report, dashboard projection은 consumer가 비동기로 처리합니다.
+
+기본 흐름:
+
+```text
+Agent
+-> gRPC + mTLS Collector
+-> schema validation
+-> PostgreSQL events + event_outbox transaction
+-> outbox publisher
+-> Redpanda/Kafka topic
+-> detection / SIEM / report / dashboard projection consumers
+-> alerts / incidents / reports / dashboard read model
+```
+
+기본 topic:
+
+| Topic | 생산자 | 소비자 |
+|---|---|---|
+| `telemetry.raw.v1` | Collector outbox publisher | normalizer, data quality worker |
+| `telemetry.validated.v1` | normalizer | detection worker, SIEM correlator |
+| `alerts.created.v1` | detection worker | incident builder, dashboard projector, report worker |
+| `incidents.created.v1` | incident builder | dashboard projector, report worker |
+| `reports.requested.v1` | dashboard/API | report worker |
+| `events.dlq.v1` | any worker | data quality dashboard, retry worker |
+
+병목 대비 원칙:
+
+- Collector는 ingest path를 짧게 유지합니다.
+- 분석 worker는 consumer group으로 수평 확장합니다.
+- broker가 느리거나 죽으면 PostgreSQL outbox에 backlog가 남습니다.
+- 처리 실패 event는 DLQ topic과 `dead_letter_events` table에 남깁니다.
+- dashboard는 raw broker를 직접 보지 않고 PostgreSQL/read model을 조회합니다.
+
+---
+
+## 6. Certificate
 
 결정: PoC 구현은 PEM file 기준으로 시작합니다.
 
@@ -110,7 +162,7 @@ Windows cert store/PFX는 실제 설치형 agent를 만들 때 추가합니다.
 
 ---
 
-## 6. Dashboard
+## 7. Dashboard
 
 결정: React + Vite + TypeScript SPA로 신규 구현합니다.
 
@@ -129,7 +181,7 @@ Windows cert store/PFX는 실제 설치형 agent를 만들 때 추가합니다.
 
 ---
 
-## 7. Sample Identity
+## 8. Sample Identity
 
 결정: 실제 사람처럼 구분 가능한 한국어 가명을 사용합니다.
 
@@ -145,7 +197,7 @@ Windows cert store/PFX는 실제 설치형 agent를 만들 때 추가합니다.
 
 ---
 
-## 8. HTTPS/L7 분석
+## 9. HTTPS/L7 분석
 
 결정: 허가된 local proxy, test app, sample record만 사용합니다.
 
@@ -172,19 +224,20 @@ Windows cert store/PFX는 실제 설치형 agent를 만들 때 추가합니다.
 
 ---
 
-## 9. 구현 우선순위
+## 10. 구현 우선순위
 
 1. contracts: protobuf, OpenAPI 보조 API, event schema
-2. collector: gRPC + mTLS ingest, PostgreSQL 저장
-3. agent: Windows process/network/DNS/file metadata 수집
-4. analysis: detection, SIEM correlation, MITRE mapping
-5. dashboard: React/Vite topology와 alert workflow
-6. report: popup, HTML, PDF export
-7. packaging: Docker Compose, local cert, demo seed data
+2. infrastructure: Docker Compose PostgreSQL + Redpanda
+3. collector: gRPC + mTLS ingest, PostgreSQL 저장, outbox 발행
+4. agent: Windows process/network/DNS/file metadata 수집
+5. analysis consumers: detection, SIEM correlation, MITRE mapping
+6. dashboard: React/Vite topology와 alert workflow
+7. report: popup, HTML, PDF export
+8. packaging: local cert, demo seed data
 
 ---
 
-## 10. 남은 미결정
+## 11. 남은 미결정
 
 현재 기준 문서에서는 미결정 항목을 남기지 않습니다.
 구현 중 바뀌는 내용은 이 문서에 decision 변경으로 기록합니다.
